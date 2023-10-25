@@ -1,0 +1,129 @@
+.admindashoard {
+  left: 20%;
+  position: relative;
+  width: 80%;
+}
+h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.user-edit-section {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 50%;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 7%;
+  height: 8%;
+}
+
+.user-edit-section Link i {
+  width: 7%;
+  height: 8%;
+}
+.user-edit-section a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+}
+
+.user-edit-section a:hover {
+  text-decoration: underline;
+}
+
+.dashboard-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.stat-box {
+  margin: 5%;
+  background-color: #d4e1f2;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+  min-width: 40%;
+  min-height: 40%;
+  text-align: center;
+}
+
+.stat-box h3 {
+  font-size: 18px;
+  margin: 0;
+  color: #333;
+}
+
+.stat-box p {
+  font-size: 36px;
+  font-weight: 600;
+  margin: 10px 0;
+  color: #007bff;
+}
+
+.most-ordered-products {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.most-ordered-products h3 {
+  font-size: 24px;
+  margin: 0;
+  margin-bottom: 10px;
+  color: #333; /* Text color */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+table,
+th,
+td {
+  border: 1px solid #e0e0e0;
+}
+
+th,
+td {
+  padding: 10px;
+  text-align: left;
+}
+
+/* Style the table header (th) differently */
+th {
+  background-color: #f0f0f0; /* Header background color */
+  font-weight: 600;
+}
+
+/* Today's Transactions Section */
+.today-transactions {
+  background-color: #ffffff; /* White background */
+  border-radius: 8px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.today-transactions h3 {
+  font-size: 24px;
+  margin: 0;
+  margin-bottom: 10px;
+  color: #333; /* Text color */
+}
+
+.chart-container {
+  margin-top: 20px;
+}

@@ -1,0 +1,148 @@
+/* paymentSection.css */
+
+/* Default styles for larger screens */
+.payment-section-container {
+  background-color: #007bff; /* Blue background color */
+  color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.card-type {
+  margin-bottom: 20px; /* Spacing between sections */
+}
+
+label {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+select {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  background-color: #fff; /* White background */
+  color: #007bff; /* Blue text color */
+  border: 1px solid #007bff; /* Blue border */
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+}
+
+.card-detail-form {
+  background-color: #007bff;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+input[type="text"] {
+  padding: 10px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  border: 2px solid #fff;
+  border-radius: 1px;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 10px;
+  transition: background-color 0.3s;
+}
+
+input[type="text"]::placeholder {
+  color: #fff;
+  font-weight: 100;
+}
+
+input[type="number"] {
+  padding: 10px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  border: 2px solid #fff;
+  border-radius: 1px;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 10px;
+  transition: background-color 0.3s;
+}
+
+input[type="number"]::placeholder {
+  color: #fff;
+  font-weight: 100;
+}
+
+input[type="submit"] {
+  background-color: #007bff;
+  color: #f9f9f9;
+  padding: 10px 20px;
+  border: 2px solid #fff;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* Container for amount section */
+.amount-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+/* Individual sections for total amount and delivery charges */
+.total-amount,
+.delivery-charges {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #007bff;
+  border-radius: 10px;
+  text-align: left;
+  color: #fff;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Styling for the headings within the sections */
+.total-amount h5,
+.delivery-charges h5 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Styling for the values within the sections */
+.total-amount h5#subtotal-value,
+.delivery-charges h5#delivery-charges-value {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Adjustments for smaller screens */
+@media screen and (max-width: 768px) {
+  .payment-section-container {
+    background-color: #0056b3; /* Darker blue for smaller screens */
+  }
+
+  select,
+  input[type="text"] {
+    background-color: #0056b3; /* Light gray background */
+    color: #fff; /* Dark text color */
+    border-color: #fff; /* Light gray border color */
+  }
+
+  input[type="submit"] {
+    background-color: #66b3ff; /* Light blue for the button */
+  }
+}
+
+/* Further adjustments for even smaller screens */
+@media screen and (max-width: 480px) {
+  .payment-section-container {
+    padding: 10px; /* Reduce padding for smaller screens */
+  }
+}

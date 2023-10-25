@@ -1,0 +1,121 @@
+/* OrderedItem.css */
+
+.ordered-item-container {
+  margin: 30px;
+  margin-left: 12.5%;
+  border-radius: 20px;
+  font-weight: 700;
+  color: #f3eff4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  padding: 10px;
+  width: 75%;
+  height: 100px;
+  background: transparent;
+  backdrop-filter: blur(2px);
+  box-shadow: 30px 30px 30px #1d0834;
+  transition: background-color 0.3s ease;
+  margin-bottom: 15px; /* Add margin-bottom for spacing between items */
+}
+
+.ordered-item-container:hover {
+  background-color: #e0e0e0;
+  color: #1d0834;
+  height: 120px;
+}
+
+.ordered-item-image img {
+  max-width: 100px;
+  height: auto;
+}
+
+.ordered-item-details {
+  font-weight: 500;
+  flex: 1;
+  padding: 10px 5%;
+}
+
+.ordered-item-details h3 {
+  font-weight: 700;
+  font-size: 18px;
+  margin: 0;
+}
+
+.ordered-item-details h4 {
+  font-weight: 700;
+  font-size: 16px;
+  margin: 0;
+}
+
+.ordered-item-status h3 {
+  font-weight: 700;
+  font-size: 18px;
+  margin: 0;
+}
+
+.ordered-date {
+  font-weight: 700;
+  font-size: 14px;
+  padding: 10px 5%;
+}
+
+.delivered-date {
+  font-size: 14px;
+  padding: 10px 5%;
+}
+
+.remove-cart-item {
+  flex: 0 0 10%;
+  text-align: right;
+}
+
+.remove-cart-item button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+.remove-cart-item:hover img {
+  max-width: 30px;
+}
+
+.remove-cart-item img {
+  max-width: 25px;
+  height: auto;
+}
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .ordered-item-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .ordered-item-details h3 {
+    font-size: 16px;
+  }
+
+  .ordered-item-details h4 {
+    font-size: 14px;
+  }
+
+  .ordered-item-container {
+    flex-direction: column;
+    text-align: center;
+    padding: 15px; /* Increase padding for better spacing */
+  }
+
+  .ordered-item-image img {
+    max-width: 80px; /* Adjust image size for smaller screens */
+  }
+
+  .ordered-item-details h3 {
+    font-size: 16px;
+  }
+
+  .ordered-item-details h4 {
+    font-size: 14px;
+  }
+}

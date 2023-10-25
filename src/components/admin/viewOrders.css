@@ -1,0 +1,66 @@
+.admin-order-view {
+  position: relative;
+  top: 0;
+  display: flex;
+  margin-left: 20%;
+  width: 80%;
+  height: 100%;
+  background-color: #fff;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.order-list-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.order-list-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.order-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 1px solid #ccc;
+}
+
+.order-header {
+  background-color: #f2f2f2;
+  text-align: left;
+  padding: 10px;
+}
+
+.order-header,
+.order-data {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.order-row:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.order-row:hover {
+  background-color: #e0e0e0;
+  cursor: pointer;
+}

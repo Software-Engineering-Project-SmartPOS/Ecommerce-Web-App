@@ -1,0 +1,18 @@
+/* ProductLayout.css */
+
+.product-layout-section {
+  top: 0;
+  position: absolute;
+  height: 80vh;
+  width: 100%;
+
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.main-section {
+  padding-top: 100vh;
+}
+.product-layout-container Footer {
+  background-color: #03071d;
+}
