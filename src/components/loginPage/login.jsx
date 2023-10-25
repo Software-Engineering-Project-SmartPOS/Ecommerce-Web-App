@@ -27,17 +27,17 @@ const Login = () => {
     e.preventDefault();
     console.log(formData);
     try {
-      // Make an API call to authenticate the user
       const response = await apiAuth.post("/login", formData, {
         headers: {
           "Content-Type": "application/json",
         },
       });
-      console.log(response.data.jwt);
+
       if (response.status === 200) {
         console.log(response);
         localStorage.setItem("jwtToken", response.data.jwt);
         localStorage.setItem("userLogged", true);
+
         const newResponse = await apiAuth.get("/me", {
           headers: {
             Authorization: `Bearer ${response.data.jwt}`,
@@ -46,11 +46,12 @@ const Login = () => {
         });
         console.log(newResponse.data);
         if (String(newResponse.data.role) == "customer") {
-          navigate("/Home");
           localStorage.setItem("userLogged", true);
-          localStorage.setItem("user", response.data);
+          localStorage.setItem("user", JSON.stringify(newResponse.data));
+          navigate("/Home");
         } else if (String(newResponse.data.role) == "admin") {
-          console.log("hi");
+          localStorage.setItem("userLogged", true);
+          localStorage.setItem("user", JSON.stringify(newResponse.data));
           navigate("/AdminPortal");
         }
       } else {

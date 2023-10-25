@@ -7,15 +7,6 @@ import Header from "../components/header";
 import Footer from "../components/footer";
 
 function UserPage() {
-  const [user, setUser] = useState({
-    fname: "John",
-    lname: " Doe",
-    email: "johndoe@example.com",
-    address: "Colombo",
-    telephone: "+9472 ",
-    gender: "Male",
-  });
-
   const updateUser = (updatedUser) => {
     setUser(updatedUser);
   };
@@ -29,10 +20,9 @@ function UserPage() {
       </div>
 
       <div className="user-page-details-container">
-        <UserInfo user={user} onUpdateUser={updateUser} />
+        <UserInfo onUpdateUser={updateUser} />
       </div>
       <div className="user-page-footer-container">
-        {" "}
         <Footer
           className="user-page-footer"
           style={{ background: "rgb(14, 4, 11)" }}

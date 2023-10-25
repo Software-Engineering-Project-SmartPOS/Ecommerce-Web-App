@@ -1,9 +1,21 @@
 import React, { useState } from "react";
 import "./userInfo.css";
+const apiUser = axios.create({
+  baseURL: import.meta.env.VITE_REST_API_URL + "/user",
+});
 
-const UserInfo = ({ user, onUpdateUser }) => {
+const UserInfo = ({ onUpdateUser }) => {
+  let localUser = JSON.parse(localStorage.getItem("user"));
+  const [user, setUser] = useState({
+    firstname: localUser.firstname,
+    lastname: localUser.lastname,
+    email: localUser.email,
+    address: localUser.address,
+    telephone: localUser.telephone,
+    gender: "Male",
+  });
+
   const [editing, setEditing] = useState(false);
-  const [editedUser, setEditedUser] = useState({ ...user });
 
   const toggleEditing = () => {
     setEditing(!editing);
@@ -11,13 +23,13 @@ const UserInfo = ({ user, onUpdateUser }) => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setEditedUser({
-      ...editedUser,
+    setUser({
+      ...user,
       [name]: value,
     });
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     console.log("Saving edited user:", editedUser);
     onUpdateUser(editedUser);
     setEditing(false);
@@ -34,7 +46,7 @@ const UserInfo = ({ user, onUpdateUser }) => {
                 type="text"
                 id="first-name"
                 name="fname"
-                value={editedUser.fname}
+                value={user.firstname}
                 onChange={handleInputChange}
                 required="required"
               />
@@ -45,7 +57,7 @@ const UserInfo = ({ user, onUpdateUser }) => {
                 type="text"
                 id="last-name"
                 name="lname"
-                value={editedUser.lname}
+                value={user.lastname}
                 onChange={handleInputChange}
                 required="required"
               />
@@ -56,7 +68,7 @@ const UserInfo = ({ user, onUpdateUser }) => {
                 type="email"
                 id="email"
                 name="email"
-                value={editedUser.email}
+                value={user.email}
                 onChange={handleInputChange}
                 required="required"
               />
@@ -67,7 +79,7 @@ const UserInfo = ({ user, onUpdateUser }) => {
                 type="text"
                 id="address"
                 name="address"
-                value={editedUser.address}
+                value={user.address}
                 onChange={handleInputChange}
                 required="required"
               />
@@ -78,7 +90,7 @@ const UserInfo = ({ user, onUpdateUser }) => {
                 type="text"
                 id="telephone"
                 name="telephone"
-                value={editedUser.telephone}
+                value={user.telephone}
                 onChange={handleInputChange}
                 required="required"
               />
@@ -89,7 +101,7 @@ const UserInfo = ({ user, onUpdateUser }) => {
               <select
                 id="gender"
                 name="gender"
-                value={editedUser.gender}
+                value={user.gender}
                 onChange={handleInputChange}
               >
                 <option value="male">Male</option>
@@ -109,7 +121,7 @@ const UserInfo = ({ user, onUpdateUser }) => {
         <div className="user-page-details-section">
           <h2>My Personal Details</h2>
           <p>
-            Name: {user.fname} {user.lname}
+            Name: {user.firstname} {user.lastname}
           </p>
           <p>Email: {user.email}</p>
           <p>Address: {user.address}</p>
