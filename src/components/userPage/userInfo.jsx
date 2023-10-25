@@ -98,12 +98,10 @@ const UserInfo = ({ user, onUpdateUser }) => {
               <span>Gender</span>
             </div>
             <div className="user-info-button">
-              <button type="user-info-save-button" onClick={handleSave}>
+              <button type="submit" onClick={handleSave}>
                 Save
               </button>
-              <button type="user-info-cancel-button" onClick={toggleEditing}>
-                Cancel
-              </button>
+              <button onClick={toggleEditing}>Cancel</button>
             </div>
           </form>
         </div>

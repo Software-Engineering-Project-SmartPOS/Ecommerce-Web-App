@@ -4,8 +4,8 @@ import "./photoEdit.css";
 
 const ImageUpload = ({ onImageSelect }) => {
   const [selectedImage, setSelectedImage] = useState(defaultImage);
-  // const storedUserJSON = localStorage.getItem("user");
-  // const storedUser = storedUserJSON ? JSON.parse(storedUserJSON) : [];
+  const storedUserJSON = localStorage.getItem("user");
+  const storedUser = storedUserJSON ? JSON.parse(storedUserJSON) : [];
   const handleImageChange = (e) => {
     const file = e.target.files[0];
 

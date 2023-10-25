@@ -1,7 +1,7 @@
 import CartList from "../components/cart/cartList";
 import PaymentSection from "../components/cart/payment";
 import FruitCard from "../components/dataComponent/fruitData";
-import Footer from "../components/home/footer";
+import Footer from "../components/footer";
 import Header from "../components/header";
 import Navbar from "../components/navbar";
 import { useState, useEffect } from "react";
@@ -53,7 +53,6 @@ function CartPage() {
             <h4 className="cart-price-header">Price</h4>
           </div>
           <div>
-            
             <CartList
               itemList={cartFoods}
               setTotalAmount={totalAmount}

@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 import "./Login.css";
 import axios from "axios";
-
+console.log(import.meta.env.VITE_REST_API_URL);
 const apiAuth = axios.create({
-  baseURL: "http://localhost:8080/auth",
+  baseURL: import.meta.env.VITE_REST_API_URL + "/auth",
 });
 
 const Login = () => {
@@ -48,6 +48,7 @@ const Login = () => {
         if (String(newResponse.data.role) == "customer") {
           navigate("/Home");
           localStorage.setItem("userLogged", true);
+          localStorage.setItem("user", response.data);
         } else if (String(newResponse.data.role) == "admin") {
           console.log("hi");
           navigate("/AdminPortal");

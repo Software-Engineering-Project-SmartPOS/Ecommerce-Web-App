@@ -16,8 +16,6 @@ function UserPage() {
     gender: "Male",
   });
 
-  localStorage.setItem("user", JSON.stringify(user));
-
   const updateUser = (updatedUser) => {
     setUser(updatedUser);
   };
