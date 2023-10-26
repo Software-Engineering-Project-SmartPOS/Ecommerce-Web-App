@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./signUp.css";
 import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 import axios from "axios";
+import { CallToActionSharp } from "@material-ui/icons";
 
 const apiAuth = axios.create({
   baseURL: "http://localhost:8080/auth",
@@ -29,7 +30,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setFormData({ ...formData });
-    console.log(formData);
+
     try {
       const response = await apiAuth.post("/register", formData, {
         headers: {
@@ -37,51 +38,31 @@ const SignUp = () => {
         },
       });
       console.log(response);
-      // if (response.status === 200) {
-      //   console.log("Authentication successful");
-
-      //   const handleSubmit = async (e) => {
-      //     e.preventDefault();
-
-      //     try {
-
-      //       const response = await apiAuth.post("/login", {username:formData.username,
-      //       password:formData.password}, {
-      //         headers: {
-      //           "Content-Type": "application/json",
-      //         },
-      //       });
-      //       console.log(response.data.jwt);
-      //       if (response.status === 200) {
-      //         console.log(response);
-      //         localStorage.setItem("jwtToken", response.data.jwt);
-      //         const newResponse = await apiAuth.get("/me", {
-      //           headers: {
-      //             Authorization: `Bearer ${response.data.jwt}`,
-      //             "Content-Type": "application/json",
-      //           },
-      //         });
-      //         console.log(newResponse.data);
-      //         if (String(newResponse.data.role) == "customer") {
-      //           navigate("/Home");
-      //           localStorage.setItem("userLogged", true);
-      //         } else  {
-      //           console.log("hi");
-      //           navigate("/Home");
-      //         }
-      //       } else {
-      //         console.log("Authentication failed");
-      //       }
-      //     } catch (error) {
-      //       console.error("Error authenticating:", error);
-      //     }
-
-      //   navigate("/Home");
-      // } else {
-      //   console.log("Authentication failed");
-      // }
       if (response.status === 200) {
+        try {
+          const response = await apiAuth.post(
+            "/login",
+            { username: formData.username, password: formData.password },
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+
+          if (response.status === 200) {
+            localStorage.setItem("jwtToken", response.data.jwt);
+          } else {
+            console.log("Login Error");
+          }
+        } catch (error) {
+          console.error("Error Requesting :", error);
+        }
+
         console.log("Authentication successful");
+        localStorage.setItem("userLogged", true);
+        localStorage.setItem("user", JSON.stringify(response.data));
+        navigate("/Home");
 
         const handleSubmit = async (e) => {
           e.preventDefault();

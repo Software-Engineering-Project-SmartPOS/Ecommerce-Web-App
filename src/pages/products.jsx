@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import FruitCard from "../components/dataComponent/fruitData";
 import MainContent from "../components/products/productCatageory/mainContent";
 import NavBarProductItem from "../components/products/productItem/navbarProductItem";

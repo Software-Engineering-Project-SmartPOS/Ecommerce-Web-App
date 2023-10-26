@@ -8,81 +8,43 @@ const apiImage = axios.create({
 });
 
 const ImageUpload = () => {
-  // navigator.serviceWorker.register("../../pages/sw");
   const [selectedImage, setSelectedImage] = useState(null);
   const storedUserJSON = localStorage.getItem("user");
   const storedUser = storedUserJSON ? JSON.parse(storedUserJSON) : [];
 
-  console.log(storedUser.fileData.name);
-
-  // useEffect(() => {
-  //   // const fetchProfilePhoto = async () => {
-  //   //   try {
-  //   //     setSelectedImage(
-  //   //       `http://localhost:8080/image/fileSystem/${storedUser.fileData.id}`
-  //   //     );
-  //   //   } catch (error) {
-  //   //     console.error("Error fetching profile photo:", error);
-  //   //   }
-  //   // };
-
-  //   // fetchProfilePhoto();
-
   const [imageBlob, setImageBlob] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:8080/image/fileSystem/${storedUser.fileData.id}`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+    try {
+      fetch(
+        `http://localhost:8080/image/fileSystem/${storedUser.fileData.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+            "Content-Type": "application/json",
+          },
         }
-        return response.blob();
-      })
-      .then((blob) => {
-        const objectUrl = URL.createObjectURL(blob);
-        console.log(objectUrl);
-        setSelectedImage(objectUrl);
-      })
-      .catch((error) => {
-        console.error("Error fetching image:", error);
-        setSelectedImage(defaultImage);
-      });
+      )
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.blob();
+        })
+        .then((blob) => {
+          const objectUrl = URL.createObjectURL(blob);
+          console.log(objectUrl);
+          setSelectedImage(objectUrl);
+        })
+        .catch((error) => {
+          console.error("Error fetching image:", error);
+          setSelectedImage(defaultImage);
+        });
+    } catch (error) {
+      console.error("No Profile Photo:", error);
+      setSelectedImage(defaultImage);
+    }
   }, []);
-
-  // const handleImageChange = async (e) => {
-  //   const file = e.target.files[0];
-  //   console.log(file);
-  //   if (file) {
-  //     let formData = new FormData();
-
-  //     formData.append("image", file);
-  //     formData.append("relation", `user${storedUser.id}`);
-  //     console.log(formData);
-
-  //     const responseUserImageChange = await apiImage.post(
-  //       "/fileSystem",
-  //       formData,
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
-  //           "Content-Type": "application/json",
-  //         },
-  //       }
-  //     );
-  //     console.log(responseUserImageChange);
-
-  //     const reader = new FileReader();
-  //     reader.onload = () => {
-  //       setSelectedImage(reader.result);
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  // };
 
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
