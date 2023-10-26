@@ -52,6 +52,7 @@ const SignUp = () => {
 
           if (response.status === 200) {
             localStorage.setItem("jwtToken", response.data.jwt);
+            localStorage.setItem("userLogged", true);
           } else {
             console.log("Login Error");
           }

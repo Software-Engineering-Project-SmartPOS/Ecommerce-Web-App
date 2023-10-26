@@ -7,13 +7,9 @@ import React from "react";
 import SearchBar from "../components/searchBar";
 
 function ProductLayout(props) {
-  const backgroundStyle = {
-    backgroundImage: `url(${props.background})`,
-  };
-
   return (
     <div className="product-layout-container">
-      <div className="product-layout-section" style={backgroundStyle}>
+      <div className="product-layout-section">
         <Header />
         <Navbar />
         <SearchBar />

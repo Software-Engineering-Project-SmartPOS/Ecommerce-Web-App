@@ -65,7 +65,7 @@ function Navbar(props) {
           </NavLink>
         </li>
         <li className="discount  navbar-list-item">
-          <NavLink to="/Products/fruit" style={props.style}>
+          <NavLink to="/Discount" style={props.style}>
             Discount
           </NavLink>
         </li>
@@ -90,15 +90,6 @@ function Navbar(props) {
       </ul>
 
       <div className="user-container-navbar">
-        {/* {searchIconClicked ? (
-          <button className="search-button" onClick={searchCloseHandler}>
-            <i className="fas fa-times-circle"></i>
-          </button>
-        ) : (
-          <button className="search-button" onClick={searchOpenHandler}>
-            <i className="fas fa-search"></i>
-          </button>
-        )} */}
         {menuIconClicked ? (
           <button className="menu-button" onClick={menuCloseHandler}>
             <i className="fas fa-times-circle"></i>

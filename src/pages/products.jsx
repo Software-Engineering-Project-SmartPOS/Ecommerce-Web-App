@@ -1,46 +1,56 @@
-import React, { useEffect } from "react";
-import FruitCard from "../components/dataComponent/fruitData";
+import React, { useEffect, useState } from "react";
+// import FruitCard from "../components/dataComponent/fruitData";
 import MainContent from "../components/products/productCatageory/mainContent";
-import NavBarProductItem from "../components/products/productItem/navbarProductItem";
-import SidebarCatageory from "../components/products/productCatageory/sidebarcatageory";
 import { useParams } from "react-router-dom";
-import VegetablesCard from "../components/dataComponent/vegetablesData";
-import GroceryCard from "../components/dataComponent/groceryData";
 import ProductLayout from "../layout/productLayout";
+import axios from "axios";
+
+const apiItem = axios.create({
+  baseURL: import.meta.env.VITE_REST_API_URL + "item",
+});
 
 function Products() {
   const Params = useParams();
-  let itemList = FruitCard;
-  let imageTitle;
+  let itemList;
 
-  function getList() {
-    if (Params.catageory === "Vegetables") {
-      imageTitle = "../assets/layout/background2.jpg";
-      return VegetablesCard;
-    } else if (Params.catageory === "Fruits") {
-      imageTitle = "../assets/layout/background7.jpg";
-      return FruitCard;
-    } else if (Params.catageory === "Groceries") {
-      return GroceryCard;
-    } else {
-      return FruitCard;
-    }
-  }
+  const [productList, setProductList] = useState([]);
+
+  useEffect(() => {
+    let categoryName = Params.catageory;
+
+    const fetchData = async () => {
+      try {
+        if (categoryName == null) {
+          const apiUrl = `${
+            import.meta.env.VITE_REST_API_URL
+          }/item/getAllItems`;
+          const responseProductList = await apiItem.get(apiUrl);
+          setProductList(responseProductList.data);
+        } else {
+          const apiUrl = `${
+            import.meta.env.VITE_REST_API_URL
+          }/item/categeory/${categoryName}`;
+          const responseProductList = await apiItem.get(apiUrl);
+          setProductList(responseProductList.data);
+        }
+      } catch (error) {
+        console.log("Error happening in data fetching", error);
+      }
+    };
+
+    fetchData();
+  }, [Params.catageory]);
+
   if (Params.key === undefined) {
-    itemList = getList();
+    itemList = productList;
   } else {
-    itemList = getList().filter((item) =>
+    itemList = productList.filter((item) =>
       item.product_name.toLowerCase().includes(Params.key.toLowerCase())
     );
   }
 
   console.log(itemList);
-  return (
-    <ProductLayout
-      children={<MainContent CatageoryList={itemList} />}
-      background={imageTitle}
-    />
-  );
+  return <ProductLayout children={<MainContent CatageoryList={itemList} />} />;
 }
 
 export default Products;

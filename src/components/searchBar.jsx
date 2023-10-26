@@ -37,20 +37,20 @@ function SearchBar() {
             </option>
 
             <option value="Vegetables">Vegetables</option>
-            <option value="Fruits">Fruits</option>
-            <option value="Meats">Meats</option>
-            <option value="Fish">Fish</option>
-            <option value="Grocery">Grocery</option>
+            <option value="fruit">Fruits</option>
+            <option value="meats">Meats</option>
+            <option value="fish">Fish</option>
+            <option value="grocery">Grocery</option>
             <option value="frozen">Frozen Food</option>
-            <option value="Beverages">Beverages</option>
-            <option value="Household">Household</option>
+            <option value="beverages">Beverages</option>
+            <option value="household">Household</option>
           </select>
 
           <button className=" btn-primary-searchbar">
             <NavLink
               className="sectiom-item-Link"
               to={{
-                pathname: `/products/${searchKey.catageory}/${searchKey.key}`,
+                pathname: `/products/${searchKey.catageory}/any/${searchKey.key}`,
               }}
             >
               <i className="fa fa-search"></i>
