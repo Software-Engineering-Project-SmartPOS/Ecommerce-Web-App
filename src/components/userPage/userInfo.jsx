@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import "./userInfo.css";
+import axios from "axios";
+
 const apiUser = axios.create({
   baseURL: import.meta.env.VITE_REST_API_URL + "/user",
 });
 
-const UserInfo = ({ onUpdateUser }) => {
+const UserInfo = () => {
   let localUser = JSON.parse(localStorage.getItem("user"));
   const [user, setUser] = useState({
     firstname: localUser.firstname,
     lastname: localUser.lastname,
-    email: localUser.email,
+    username: localUser.email,
     address: localUser.address,
     telephone: localUser.telephone,
     gender: "Male",
@@ -29,10 +31,38 @@ const UserInfo = ({ onUpdateUser }) => {
     });
   };
 
-  const handleSave = async () => {
-    console.log("Saving edited user:", editedUser);
-    onUpdateUser(editedUser);
-    setEditing(false);
+  const handleSave = async (e) => {
+    e.preventDefault();
+    const jwtToken = localStorage.getItem("jwtToken");
+    console.log(jwtToken);
+
+    try {
+      let newuser = {
+        firstname: user.firstname,
+        lastname: user.lastname,
+        username: user.username,
+        address: user.address,
+        telephone: parseInt(user.telephone, 10),
+      };
+      const userSaveResponse = await apiUser.put(
+        "/editUserDetails",
+        JSON.stringify(newuser),
+        {
+          headers: {
+            Authorization: `Bearer ${jwtToken}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (userSaveResponse) {
+        console.log("Saving edited user:", userSaveResponse.data);
+      }
+
+      setEditing(false);
+    } catch (error) {
+      console.error("Error while saving edited user:", error);
+    }
   };
 
   return (
@@ -40,7 +70,7 @@ const UserInfo = ({ onUpdateUser }) => {
       {editing ? (
         <div id="user-page-Edit-section">
           <h2>Edit Profile Details</h2>
-          <form>
+          <form onSubmit={handleSave}>
             <div className="input-box-user-page">
               <input
                 type="text"
@@ -68,7 +98,7 @@ const UserInfo = ({ onUpdateUser }) => {
                 type="email"
                 id="email"
                 name="email"
-                value={user.email}
+                value={user.username}
                 onChange={handleInputChange}
                 required="required"
               />
@@ -110,9 +140,7 @@ const UserInfo = ({ onUpdateUser }) => {
               <span>Gender</span>
             </div>
             <div className="user-info-button">
-              <button type="submit" onClick={handleSave}>
-                Save
-              </button>
+              <button type="submit">Save</button>
               <button onClick={toggleEditing}>Cancel</button>
             </div>
           </form>
@@ -123,7 +151,7 @@ const UserInfo = ({ onUpdateUser }) => {
           <p>
             Name: {user.firstname} {user.lastname}
           </p>
-          <p>Email: {user.email}</p>
+          <p>Email: {user.username}</p>
           <p>Address: {user.address}</p>
           <p>Telephone: {user.telephone}</p>
           <p>Gender: {user.gender}</p>

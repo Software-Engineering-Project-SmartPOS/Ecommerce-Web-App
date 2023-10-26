@@ -40,11 +40,11 @@ const Login = () => {
 
         const newResponse = await apiAuth.get("/me", {
           headers: {
-            Authorization: `Bearer ${response.data.jwt}`,
+            Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
             "Content-Type": "application/json",
           },
         });
-        console.log(newResponse.data);
+
         if (String(newResponse.data.role) == "customer") {
           localStorage.setItem("userLogged", true);
           localStorage.setItem("user", JSON.stringify(newResponse.data));

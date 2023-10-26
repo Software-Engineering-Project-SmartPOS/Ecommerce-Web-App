@@ -1,4 +1,3 @@
-import { useState } from "react";
 import ImageUpload from "../components/userPage/photoEdit";
 import UserInfo from "../components/userPage/userInfo";
 import "./userPage.css";
@@ -7,10 +6,6 @@ import Header from "../components/header";
 import Footer from "../components/footer";
 
 function UserPage() {
-  const updateUser = (updatedUser) => {
-    setUser(updatedUser);
-  };
-
   return (
     <div className="user-page-container">
       <Header className="user-page-header" />
@@ -20,7 +15,7 @@ function UserPage() {
       </div>
 
       <div className="user-page-details-container">
-        <UserInfo onUpdateUser={updateUser} />
+        <UserInfo />
       </div>
       <div className="user-page-footer-container">
         <Footer

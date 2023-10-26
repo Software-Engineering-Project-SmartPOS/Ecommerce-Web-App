@@ -1,11 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import defaultImage from "../../assets/layout/background1.jpg";
 import "./photoEdit.css";
+import axios from "axios";
+
+const apiImage = axios.create({
+  baseURL: import.meta.env.VITE_REST_API_URL + "/image",
+});
 
 const ImageUpload = ({ onImageSelect }) => {
   const [selectedImage, setSelectedImage] = useState(defaultImage);
   const storedUserJSON = localStorage.getItem("user");
   const storedUser = storedUserJSON ? JSON.parse(storedUserJSON) : [];
+
+  console.log(storedUser.fileData.name);
+
+  useEffect(() => {
+    const fetchProfilePhoto = async () => {
+      try {
+        const response = await apiImage.get(
+          `/fileSystem/${storedUser.fileData.id}`
+        );
+        setSelectedImage(response);
+      } catch (error) {
+        console.error("Error fetching profile photo:", error);
+      }
+    };
+
+    fetchProfilePhoto();
+  }, []);
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
 
@@ -24,8 +47,6 @@ const ImageUpload = ({ onImageSelect }) => {
   };
 
   const handleUploadDefaultImage = () => {
-    // You can implement the logic to upload a new default image here
-    // For now, let's just reset the selectedImage to null as a placeholder
     setSelectedImage(null);
   };
 
@@ -49,8 +70,8 @@ const ImageUpload = ({ onImageSelect }) => {
         </i>
       </div>
       <div className="user-name">
-        {storedUser.fname}
-        {storedUser.lname}
+        {storedUser.firstname}
+        {storedUser.lastname}
       </div>
       <button
         className="user-page-remove-image"
