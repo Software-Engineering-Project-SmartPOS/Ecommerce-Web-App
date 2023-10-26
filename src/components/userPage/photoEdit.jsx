@@ -8,7 +8,7 @@ const apiImage = axios.create({
 });
 
 const ImageUpload = ({ onImageSelect }) => {
-  const [selectedImage, setSelectedImage] = useState(defaultImage);
+  const [selectedImage, setSelectedImage] = useState(null);
   const storedUserJSON = localStorage.getItem("user");
   const storedUser = storedUserJSON ? JSON.parse(storedUserJSON) : [];
 
@@ -17,10 +17,9 @@ const ImageUpload = ({ onImageSelect }) => {
   useEffect(() => {
     const fetchProfilePhoto = async () => {
       try {
-        const response = await apiImage.get(
-          `/fileSystem/${storedUser.fileData.id}`
+        setSelectedImage(
+          `http://localhost:8080/image/fileSystem/${storedUser.fileData.id}`
         );
-        setSelectedImage(response);
       } catch (error) {
         console.error("Error fetching profile photo:", error);
       }
