@@ -1,77 +1,140 @@
 import "./cartItem.css";
-import React, { useState } from "react";
-import CloseIcon from "../../assets/cartPage/closeIcon.jpg";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+
+console.log(import.meta.env.VITE_REST_API_URL);
+const apiOrder = axios.create({
+  baseURL: import.meta.env.VITE_REST_API_URL + "/order",
+});
 
 function CartItem(props) {
-  const storedListJSON = localStorage.getItem("cartItem");
-  const storedList = storedListJSON ? JSON.parse(storedListJSON) : [];
-  const foundObject = storedList.find(
-    (item) => item.id === props.item.id && item.name === props.item.product_name
-  );
-  // try {
-  //   const storedList = JSON.parse(storedListJSON);
-  // } catch (error) {
-  //   console.error("Error parsing JSON:", error);
-  // }
-  const [cartCount, setCartCount] = useState(foundObject.count);
+  const priceString = props.cartItem.item.price;
+  const priceFloat = parseFloat(priceString.replace("Rs.", "").trim());
+  const priceInt = Math.round(priceFloat);
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  useEffect(() => {
+    const fetchImage = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:8080/image/productFileSystem/${props.cartItem.item.fileData.id}`
+        );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const blob = await response.blob();
+        const objectUrl = URL.createObjectURL(blob);
+
+        setSelectedImage(objectUrl);
+      } catch (error) {
+        console.error("Error fetching image:", error);
+      }
+    };
+
+    fetchImage();
+  }, [props.cartItem.item.fileData.id]);
 
   function closeHandler() {
-    props.closeButtonHandler(props.item.id);
+    props.closeButtonHandler(props.cartItem.id);
   }
 
   function CartIncreaseHandler() {
-    setCartCount(cartCount + 1);
+    if (props.cartItem.quantity > 1) {
+      const cartCount = props.cartItem.quantity;
 
-    if (foundObject) {
-      foundObject.count = cartCount + 1;
-      foundObject.amount = (cartCount + 1) * props.item.price;
+      props.cartItem.quantity = cartCount + 1;
 
-      props.setItemAmount(props.itemsAmount + parseInt(props.item.price, 10));
-      localStorage.setItem("cartItem", JSON.stringify(storedList));
-    } else {
-      storedList.push({
-        id: props.item.id,
-        name: props.product_name,
-        amount: cartCount * props.item.price,
-        thumb: props.item.thumb,
-        count: cartCount,
-      });
+      props.setItemAmount(props.itemsAmount + priceInt * 1);
 
-      localStorage.setItem("cartItem", JSON.stringify(storedList));
+      const orderToChange = {
+        id: props.cartItem.id,
+        quantity: props.cartItem.quantity,
+        item: props.cartItem.item,
+        status: props.cartItem.status,
+      };
+
+      const changeOrder = async () => {
+        console.log(orderToChange);
+        try {
+          const changeOrderResponse = await apiOrder.put(
+            "/changeOrder",
+            orderToChange,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+                "Content-Type": "application/json",
+              },
+            }
+          );
+        } catch (error) {
+          console.log("Error happenig changing Order data", error);
+        }
+      };
+
+      changeOrder();
     }
   }
 
   function CartDecreaseHandler() {
-    if (cartCount > 0) {
-      setCartCount(cartCount - 1);
-      localStorage.setItem("CartItem", {
-        name: props.item.product_name,
-        amount: cartCount * props.item.price,
-      });
+    if (props.cartItem.quantity > 1) {
+      const cartCount = props.cartItem.quantity;
+
+      props.cartItem.quantity = cartCount - 1;
+
+      props.setItemAmount(props.itemsAmount - priceInt * 1);
+
+      const orderToChange = {
+        id: props.cartItem.id,
+        quantity: props.cartItem.quantity,
+        item: props.cartItem.item,
+        status: props.cartItem.status,
+      };
+
+      const changeOrder = async () => {
+        console.log(orderToChange);
+        try {
+          const changeOrderResponse = await apiOrder.put(
+            "/changeOrder",
+            orderToChange,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+                "Content-Type": "application/json",
+              },
+            }
+          );
+        } catch (error) {
+          console.log("Error happenig changing Order data", error);
+        }
+      };
+
+      changeOrder();
     }
   }
 
   return (
-    <div className="cart-item-container" key={props.item.id}>
+    <div className="cart-item-container" key={props.cartItem.id}>
       <div className="cart-item-image">
-        <img src={props.item.thumb} />
+        <img src={selectedImage} />
       </div>
-      <div className="cart-item-details">{props.item.product_name}</div>
+      <div className="cart-item-details">{props.cartItem.item.name}</div>
       <div className="item-quantity">
         <button className="decrease-cart-button" onClick={CartDecreaseHandler}>
           -
         </button>
-        <div className="cart-count">{cartCount}</div>
+        <div className="cart-count">{props.cartItem.quantity}</div>
         <button className="increase-cart-button" onClick={CartIncreaseHandler}>
           +
         </button>
       </div>
       <div className="items-total-price">
-        RS.{cartCount * props.item.price}.00
+        {props.cartItem.quantity * priceInt}
       </div>
       <div className="remove-cart-item">
         <button onClick={closeHandler}>
-          <img src={CloseIcon} />
+          <i className="fa fa-times-circle"></i>
         </button>
       </div>
     </div>

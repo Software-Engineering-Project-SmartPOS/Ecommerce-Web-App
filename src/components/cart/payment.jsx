@@ -1,6 +1,44 @@
 import "./payment.css";
+import axios from "axios";
+
+console.log(import.meta.env.VITE_REST_API_URL);
+const apiOrder = axios.create({
+  baseURL: import.meta.env.VITE_REST_API_URL + "/order",
+});
 
 function PaymentSection(props) {
+  const paymentHandle = async (e) => {
+    e.preventDefault();
+
+    const orderBodies = [];
+
+    props.cartList.map((item) => {
+      const orderToDelete = {
+        id: item.id,
+        quantity: item.quantity,
+        item: item.item,
+        status: item.status,
+      };
+
+      orderBodies.push(orderToDelete);
+    });
+
+    try {
+      const paymentOrderResponse = await apiOrder.put(
+        "/changeAllStatus",
+        orderBodies,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+    } catch (error) {
+      console.log("Error happenig changing Order data", error);
+    }
+  };
+
   return (
     <div className="payment-section-container">
       <div className="card-type">
@@ -12,7 +50,7 @@ function PaymentSection(props) {
         </select>
       </div>
       <div className="card-detail-form">
-        <form>
+        <form onSubmit={paymentHandle}>
           <input
             type="text"
             id="name"
@@ -33,7 +71,7 @@ function PaymentSection(props) {
             </div>
             <div id="delivery-charges" className="delivery-charges">
               <h5>Delivery Charges</h5>
-              <h5 id="delivery-charges-value">value</h5>
+              <h5 id="delivery-charges-value"></h5>
             </div>
           </div>
 

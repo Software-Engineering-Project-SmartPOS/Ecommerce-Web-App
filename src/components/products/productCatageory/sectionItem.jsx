@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./sectionItem.css";
+import axios from "axios";
+
+console.log(import.meta.env.VITE_REST_API_URL);
+const apiOrder = axios.create({
+  baseURL: import.meta.env.VITE_REST_API_URL + "/order",
+});
 
 function SectionItem(props) {
   const UserStatus = JSON.parse(localStorage.getItem("userLogged"));
@@ -31,6 +37,32 @@ function SectionItem(props) {
 
     fetchImage();
   }, [props.thumb.id]);
+
+  const AddCartHandler = async (product) => {
+    let order = {
+      quantity: cartCount,
+      item: product,
+      status: "Ordered",
+    };
+    if (cartCount >= 1) {
+      try {
+        const orderResponse = await apiOrder.post("/createOrder", order, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+            "Content-Type": "application/json",
+          },
+        });
+        setCartCount(0);
+        console.log(orderResponse);
+
+        console.log(cartCount);
+      } catch (error) {
+        console.log("Error When Creating Order", error);
+      }
+    } else {
+      console.log("You have to select at leat one element");
+    }
+  };
 
   function CartIncreaseHandler() {
     setCartCount(cartCount + 1);
@@ -63,7 +95,10 @@ function SectionItem(props) {
         {UserStatus ? (
           <div className="add-cart-section">
             <div className="add-cart-button">
-              <button className="add-cart" onClick={CartIncreaseHandler}>
+              <button
+                className="add-cart"
+                onClick={() => AddCartHandler(props)}
+              >
                 Add to Cart
               </button>
             </div>

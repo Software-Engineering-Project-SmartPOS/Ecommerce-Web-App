@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-// import FruitCard from "../components/dataComponent/fruitData";
+import Footer from "../components/footer";
+import Navbar from "../components/navbar";
+import Header from "../components/header";
 import MainContent from "../components/products/productCatageory/mainContent";
-import { useParams } from "react-router-dom";
-import ProductLayout from "../layout/productLayout";
 import axios from "axios";
 import "./discount.css";
 
@@ -11,26 +11,18 @@ const apiItem = axios.create({
 });
 
 function Discounts() {
-  let itemList;
-
-  const [productList, setProductList] = useState([]);
+  const [itemList, setItemList] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const apiUrl = `${import.meta.env.VITE_REST_API_URL}/item/getAllItems`;
         const responseProductList = await apiItem.get(apiUrl);
-        setProductList(responseProductList.data);
 
-        const filterItemsWithDiscount = (productList) => {
-          console.log(item.discount);
-          return productList.filter((item) => {
-            item.discount.trim() !== "";
-          });
-        };
-
-        itemList = filterItemsWithDiscount(productList);
-        console.log(productList);
+        const filteredItems = responseProductList.data.filter(
+          (item) => item.discount.trim() !== ""
+        );
+        setItemList(filteredItems);
       } catch (error) {
         console.log("Error happening in data fetching", error);
       }
@@ -46,7 +38,7 @@ function Discounts() {
         <Navbar />
       </div>
 
-      <main className="main-section">
+      <main className="discount-main-section">
         <MainContent CatageoryList={itemList} />
       </main>
       <Footer className="discount-products-footer" />

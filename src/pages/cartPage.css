@@ -1,6 +1,3 @@
-/* cartPage.css */
-
-/* Style for the main container */
 .cart-page-contennt {
   background-color: #131417;
   min-height: 100vh;
@@ -72,7 +69,7 @@
   background-color: #01000c;
 }
 .cartList {
-  width: 40%;
+  width: 60%;
   height: 85vh;
   position: absolute;
   background-color: #4993bb;
@@ -95,13 +92,14 @@
   right: 0;
 }
 
-/* Style for the cart page lower section (footer) */
 .cart-page-footer-section {
   width: 100%;
   background-color: #333;
   color: #fff;
-  padding: 20px 0;
+  padding: 0;
   text-align: center;
+  height: 150px;
 }
-
-/* Additional styles can be added as needed */
+.cart-page-main-section .payment-section {
+  height: 89%;
+}

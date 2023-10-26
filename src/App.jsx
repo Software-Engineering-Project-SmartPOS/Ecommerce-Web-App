@@ -12,6 +12,7 @@ import Login from "./components/loginPage/login";
 import SignUp from "./components/signupPage/signUp";
 import Sidebar from "./components/admin/sidebar";
 import AdminPortal from "./pages/adminPortal";
+import Discounts from "./pages/DiscountPage";
 
 function App() {
   return (
@@ -28,7 +29,7 @@ function App() {
           <Route path="/UserPage" element={<UserPage />} />
           <Route path="/PurchaseOrder" element={<PurchaseOrderPage />} />
           <Route path="/Products" element={<Products />} />
-          <Route path="/Discount" element={<Products />} />
+          <Route path="/Discount" element={<Discounts />} />
           <Route path="/Products/:catageory" element={<Products />} />
           <Route path="/Products/:catageory/:key" element={<Products />} />
           <Route path="/Layout/main" element={<MainLayout />} />
