@@ -25,7 +25,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+
     try {
       const response = await apiAuth.post("/login", formData, {
         headers: {
@@ -34,7 +34,6 @@ const Login = () => {
       });
 
       if (response.status === 200) {
-        console.log(response);
         localStorage.setItem("jwtToken", response.data.jwt);
         localStorage.setItem("userLogged", true);
 

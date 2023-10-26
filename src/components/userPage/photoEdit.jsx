@@ -7,37 +7,134 @@ const apiImage = axios.create({
   baseURL: import.meta.env.VITE_REST_API_URL + "/image",
 });
 
-const ImageUpload = ({ onImageSelect }) => {
+const ImageUpload = () => {
+  // navigator.serviceWorker.register("../../pages/sw");
   const [selectedImage, setSelectedImage] = useState(null);
   const storedUserJSON = localStorage.getItem("user");
   const storedUser = storedUserJSON ? JSON.parse(storedUserJSON) : [];
 
   console.log(storedUser.fileData.name);
 
-  useEffect(() => {
-    const fetchProfilePhoto = async () => {
-      try {
-        setSelectedImage(
-          `http://localhost:8080/image/fileSystem/${storedUser.fileData.id}`
-        );
-      } catch (error) {
-        console.error("Error fetching profile photo:", error);
-      }
-    };
+  // useEffect(() => {
+  //   // const fetchProfilePhoto = async () => {
+  //   //   try {
+  //   //     setSelectedImage(
+  //   //       `http://localhost:8080/image/fileSystem/${storedUser.fileData.id}`
+  //   //     );
+  //   //   } catch (error) {
+  //   //     console.error("Error fetching profile photo:", error);
+  //   //   }
+  //   // };
 
-    fetchProfilePhoto();
+  //   // fetchProfilePhoto();
+
+  const [imageBlob, setImageBlob] = useState(null);
+
+  useEffect(() => {
+    fetch(`http://localhost:8080/image/fileSystem/${storedUser.fileData.id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.blob();
+      })
+      .then((blob) => {
+        const objectUrl = URL.createObjectURL(blob);
+        console.log(objectUrl);
+        setSelectedImage(objectUrl);
+      })
+      .catch((error) => {
+        console.error("Error fetching image:", error);
+        setSelectedImage(defaultImage);
+      });
   }, []);
 
-  const handleImageChange = (e) => {
+  // const handleImageChange = async (e) => {
+  //   const file = e.target.files[0];
+  //   console.log(file);
+  //   if (file) {
+  //     let formData = new FormData();
+
+  //     formData.append("image", file);
+  //     formData.append("relation", `user${storedUser.id}`);
+  //     console.log(formData);
+
+  //     const responseUserImageChange = await apiImage.post(
+  //       "/fileSystem",
+  //       formData,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
+  //     console.log(responseUserImageChange);
+
+  //     const reader = new FileReader();
+  //     reader.onload = () => {
+  //       setSelectedImage(reader.result);
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
+
+  const handleImageChange = async (e) => {
     const file = e.target.files[0];
+    console.log(file);
 
     if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setSelectedImage(reader.result);
-      };
-      reader.readAsDataURL(file);
-      onImageSelect(file);
+      const formData = new FormData();
+
+      formData.append("image", file);
+      formData.append("relation", "user");
+      console.log(formData);
+      try {
+        const responseUserImageDelete = await apiImage.post(
+          "/fileSystem/deleteUserImage",
+          null,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        console.log(responseUserImageDelete);
+      } catch (error) {
+        console.error("Error Deleting the Photo:", error);
+      }
+
+      try {
+        const responseUserImageChange = await apiImage.post(
+          "/fileSystem",
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+
+        const localUserJSON = localStorage.getItem("user");
+        const localUser = localUserJSON ? JSON.parse(localUserJSON) : {};
+        localUser.fileData = responseUserImageChange.data;
+        localStorage.setItem("user", JSON.stringify(localUser));
+
+        const reader = new FileReader();
+        reader.onload = () => {
+          setSelectedImage(reader.result);
+        };
+        reader.readAsDataURL(file);
+      } catch (error) {
+        console.error("Error Uploading the Photo:", error);
+      }
     }
   };
 
@@ -45,8 +142,24 @@ const ImageUpload = ({ onImageSelect }) => {
     document.getElementById("imageInput").click();
   };
 
-  const handleUploadDefaultImage = () => {
-    setSelectedImage(null);
+  const handleUploadDefaultImage = async (e) => {
+    try {
+      const responseUserImageDelete = await apiImage.post(
+        "/fileSystem/deleteUserImage",
+        null,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(responseUserImageDelete);
+    } catch (error) {
+      console.error("Error Deleting the Photo:", error);
+    }
+
+    setSelectedImage(defaultImage);
   };
 
   return (
