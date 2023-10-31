@@ -43,14 +43,15 @@ const Login = () => {
             "Content-Type": "application/json",
           },
         });
+        localStorage.setItem("user", JSON.stringify(newResponse.data));
 
         if (String(newResponse.data.role) == "customer") {
-          localStorage.setItem("userLogged", true);
-          localStorage.setItem("user", JSON.stringify(newResponse.data));
           navigate("/Home");
-        } else if (String(newResponse.data.role) == "admin") {
+
           localStorage.setItem("userLogged", true);
-          localStorage.setItem("user", JSON.stringify(newResponse.data));
+        } else if (String(newResponse.data.role) == "admin") {
+          // localStorage.setItem("userLogged", true);
+          // localStorage.setItem("user", JSON.stringify(newResponse.data));
           navigate("/AdminPortal");
         }
       } else {
@@ -67,11 +68,25 @@ const Login = () => {
         <h2>Login</h2>
         <form action="" onSubmit={handleSubmit}>
           <div className="login-form-group">
-            <input type="email" id="username" name="username" value={formData.username} onChange={handleChange} required />
+            <input
+              type="email"
+              id="username"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+              required
+            />
             <span>User name</span>
           </div>
           <div className="login-form-group">
-            <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} required />
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
             <span>Password</span>
           </div>
           <div className="login-page-link-container">
@@ -84,7 +99,7 @@ const Login = () => {
           </div>
         </form>
         <div className="login-page-link-container">
-          <Link to="/">Back</Link>
+          <Link to="/Home">Back</Link>
           <Link to="/SignupPage">Sign Up</Link>
         </div>
       </div>

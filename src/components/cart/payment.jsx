@@ -8,35 +8,31 @@ const apiOrder = axios.create({
 
 function PaymentSection(props) {
   const paymentHandle = async (e) => {
-    e.preventDefault();
-
-    const orderBodies = [];
-
-    props.cartList.map((item) => {
-      const orderToDelete = {
-        id: item.id,
-        quantity: item.quantity,
-        item: item.item,
-        status: item.status,
-      };
-
-      orderBodies.push(orderToDelete);
-    });
-
-    try {
-      const paymentOrderResponse = await apiOrder.put(
-        "/changeAllStatus",
-        orderBodies,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-    } catch (error) {
-      console.log("Error happenig changing Order data", error);
-    }
+    //   e.preventDefault();
+    //   const orderBodies = [];
+    //   props.cartList.map((item) => {
+    //     const orderToDelete = {
+    //       id: item.id,
+    //       quantity: item.quantity,
+    //       item: item.item,
+    //       status: item.status,
+    //     };
+    //     orderBodies.push(orderToDelete);
+    //   });
+    //   try {
+    //     const paymentOrderResponse = await apiOrder.put(
+    //       "/changeAllStatus",
+    //       orderBodies,
+    //       {
+    //         headers: {
+    //           Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+    //           "Content-Type": "application/json",
+    //         },
+    //       }
+    //     );
+    //   } catch (error) {
+    //     console.log("Error happenig changing Order data", error);
+    //   }
   };
 
   return (
@@ -71,11 +67,11 @@ function PaymentSection(props) {
             </div>
             <div id="delivery-charges" className="delivery-charges">
               <h5>Delivery Charges</h5>
-              <h5 id="delivery-charges-value"></h5>
+              <h5 id="delivery-charges-value">0</h5>
             </div>
           </div>
 
-          <input type="submit" value="Submit" />
+          <input type="submit" value="Checkout" />
         </form>
       </div>
     </div>

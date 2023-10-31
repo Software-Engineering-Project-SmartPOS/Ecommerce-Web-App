@@ -4,7 +4,9 @@ import React, { useState, useEffect } from "react";
 import "./navbar.css";
 
 function Navbar(props) {
-  const [userLogged, setUserLogged] = useState(false);
+  const loginStatus =
+    localStorage.getItem("userLogged") !== null ? true : false;
+  const [userLogged, setUserLogged] = useState(loginStatus);
   const [menuIconClicked, setMenuIconClicked] = useState(false);
   const [searchIconClicked, setSearchIconClicked] = useState(false);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);

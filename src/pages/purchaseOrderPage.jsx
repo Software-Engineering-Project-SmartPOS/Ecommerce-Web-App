@@ -10,7 +10,6 @@ function PurchaseOrderPage() {
       <Header />
       <Navbar />
       <PurchaseOrderContent />
-      <Footer className="footer" />
     </div>
   );
 }

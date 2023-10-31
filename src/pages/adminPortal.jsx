@@ -60,6 +60,8 @@ function AdminPortal() {
   } else if (selectedButton === "Log Out") {
     localStorage.removeItem("jwtToken");
     localStorage.removeItem("userLogged");
+    localStorage.removeItem("user");
+    localStorage.removeItem("selectedButton");
     componentToRender = <Home />;
   }
 

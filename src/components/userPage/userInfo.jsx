@@ -14,7 +14,6 @@ const UserInfo = () => {
     username: localUser.email,
     address: localUser.address,
     telephone: localUser.telephone,
-    gender: "Male",
   });
 
   const [editing, setEditing] = useState(false);
@@ -44,6 +43,11 @@ const UserInfo = () => {
         address: user.address,
         telephone: parseInt(user.telephone, 10),
       };
+      (localUser.firstname = user.firstname),
+        (localUser.lastname = user.lastname),
+        (localUser.username = user.username),
+        (localUser.telephone = parseInt(user.telephone, 10)),
+        localStorage.setItem("user", JSON.stringify(localUser));
       const userSaveResponse = await apiUser.put(
         "/editUserDetails",
         JSON.stringify(newuser),
@@ -75,10 +79,10 @@ const UserInfo = () => {
               <input
                 type="text"
                 id="first-name"
-                name="fname"
+                name="firstname"
                 value={user.firstname}
                 onChange={handleInputChange}
-                required="required"
+                required
               />
               <span>First name</span>
             </div>
@@ -86,10 +90,10 @@ const UserInfo = () => {
               <input
                 type="text"
                 id="last-name"
-                name="lname"
+                name="lastname"
                 value={user.lastname}
                 onChange={handleInputChange}
-                required="required"
+                required
               />
               <span>Last name</span>
             </div>
@@ -127,18 +131,6 @@ const UserInfo = () => {
               <span>Telephone</span>
             </div>
 
-            <div className="select-list-user-page">
-              <select
-                id="gender"
-                name="gender"
-                value={user.gender}
-                onChange={handleInputChange}
-              >
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-              </select>
-              <span>Gender</span>
-            </div>
             <div className="user-info-button">
               <button type="submit">Save</button>
               <button onClick={toggleEditing}>Cancel</button>
@@ -154,7 +146,7 @@ const UserInfo = () => {
           <p>Email: {user.username}</p>
           <p>Address: {user.address}</p>
           <p>Telephone: {user.telephone}</p>
-          <p>Gender: {user.gender}</p>
+
           <div className="user-page-details-button">
             <button type="button" onClick={toggleEditing}>
               Edit

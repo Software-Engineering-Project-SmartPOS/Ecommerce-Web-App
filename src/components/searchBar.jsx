@@ -50,7 +50,7 @@ function SearchBar() {
             <NavLink
               className="sectiom-item-Link"
               to={{
-                pathname: `/products/${searchKey.catageory}/any/${searchKey.key}`,
+                pathname: `/Products/${searchKey.catageory}/${searchKey.key}`,
               }}
             >
               <i className="fa fa-search"></i>

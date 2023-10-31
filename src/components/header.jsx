@@ -21,7 +21,9 @@ function Header() {
   }, []);
 
   const handleLogout = () => {
+    localStorage.removeItem("user");
     localStorage.removeItem("jwtToken");
+
     localStorage.removeItem("userLogged");
     setUserLogged(false);
   };
