@@ -5,7 +5,6 @@ function MainContent(props) {
   const SectionItems = props.CatageoryList.map((sectionItem) => (
     <div>
       {" "}
-      {console.log(sectionItem.savedByUsers)}
       <SectionItem
         id={sectionItem.id}
         thumb={sectionItem.fileData}

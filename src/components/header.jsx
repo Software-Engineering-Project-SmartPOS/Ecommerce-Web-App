@@ -44,7 +44,7 @@ function Header() {
                 </div>
               </Link>
 
-              <Link className="user-container-link save-item">
+              <Link to="/SavedItem" className="user-container-link save-item">
                 <div className="user-container-icon">
                   <span>
                     <i className="fa fa-heart">

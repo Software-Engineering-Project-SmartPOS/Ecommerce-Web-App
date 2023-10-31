@@ -13,6 +13,7 @@ import SignUp from "./components/signupPage/signUp";
 import Sidebar from "./components/admin/sidebar";
 import AdminPortal from "./pages/adminPortal";
 import Discounts from "./pages/discountPage";
+import SavedItem from "./pages/savedItemPage";
 
 function App() {
   return (
@@ -34,8 +35,11 @@ function App() {
           <Route path="/Products/:catageory/:key" element={<Products />} />
           <Route path="/Layout/main" element={<MainLayout />} />
           <Route path="/Carousel" element={<AboutUs />} />
-          <Route path="/Discount" element={<Products />} />
-          <Route path="/products/Item/:itemId/:cartCount" element={<ProductItemPage />} />
+          <Route path="/SavedItem" element={<SavedItem />} />
+          <Route
+            path="/products/Item/:itemId/:cartCount"
+            element={<ProductItemPage />}
+          />
         </Routes>
       </BrowserRouter>
     </>
