@@ -26,7 +26,12 @@ function CartPage() {
             "Content-Type": "application/json",
           },
         });
-        setCartList(orderResponse.data);
+
+        const updatedCartList = orderResponse.data.filter(
+          (item) => item.status !== "purchased"
+        );
+
+        setCartList(updatedCartList);
 
         let total = 0;
         for (let i = 0; i < orderResponse.data.length; i++) {
@@ -55,6 +60,11 @@ function CartPage() {
     console.log("hi");
     setSubTotal(Amount);
   }
+
+  function checkout() {
+    setCartList([]);
+  }
+
   function removeItemHandler(indexToRemove) {
     for (let i = 0; i < cartList.length; i++) {
       if (cartList[i].id === indexToRemove) {
@@ -127,7 +137,11 @@ function CartPage() {
         )}
 
         <div className="payment-section">
-          <PaymentSection totalAmount={subTotal} orderList={cartList} />
+          <PaymentSection
+            totalAmount={subTotal}
+            orderList={cartList}
+            checkout={checkout}
+          />
         </div>
       </div>
 

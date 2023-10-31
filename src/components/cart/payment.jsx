@@ -8,31 +8,38 @@ const apiOrder = axios.create({
 
 function PaymentSection(props) {
   const paymentHandle = async (e) => {
-    //   e.preventDefault();
-    //   const orderBodies = [];
-    //   props.cartList.map((item) => {
-    //     const orderToDelete = {
-    //       id: item.id,
-    //       quantity: item.quantity,
-    //       item: item.item,
-    //       status: item.status,
-    //     };
-    //     orderBodies.push(orderToDelete);
-    //   });
-    //   try {
-    //     const paymentOrderResponse = await apiOrder.put(
-    //       "/changeAllStatus",
-    //       orderBodies,
-    //       {
-    //         headers: {
-    //           Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
-    //           "Content-Type": "application/json",
-    //         },
-    //       }
-    //     );
-    //   } catch (error) {
-    //     console.log("Error happenig changing Order data", error);
-    //   }
+    e.preventDefault();
+    const orderBodies = [];
+
+    if (props.orderList) {
+      props.orderList.map((item) => {
+        const orderToEdit = {
+          id: item.id,
+          quantity: item.quantity,
+          item: item.item,
+          status: "purchased",
+        };
+        orderBodies.push(orderToEdit);
+        console.log(orderToEdit);
+      });
+    }
+    console.log(orderBodies);
+
+    try {
+      const paymentOrderResponse = await apiOrder.put(
+        "/changeAllStatus",
+        orderBodies,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      props.checkout();
+    } catch (error) {
+      console.log("Error happenig changing Order data", error);
+    }
   };
 
   return (
