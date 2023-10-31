@@ -41,8 +41,9 @@ const UserInfo = () => {
         lastname: user.lastname,
         username: user.username,
         address: user.address,
-        telephone: parseInt(user.telephone, 10),
+        telephone: parseInt(user.telephone),
       };
+
       (localUser.firstname = user.firstname),
         (localUser.lastname = user.lastname),
         (localUser.username = user.username),

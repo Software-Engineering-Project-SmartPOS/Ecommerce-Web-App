@@ -28,7 +28,7 @@ function CartPage() {
         });
 
         const updatedCartList = orderResponse.data.filter(
-          (item) => item.status !== "purchased"
+          (item) => item.status === "Ordered"
         );
 
         setCartList(updatedCartList);

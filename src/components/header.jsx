@@ -44,21 +44,11 @@ function Header() {
                 </div>
               </Link>
 
-              <Link className="user-container-link message">
-                <div className="user-container-icon">
-                  <span>
-                    <i className="fa fa-comment">
-                      <span className="notification">{1}</span>
-                    </i>
-                  </span>
-                </div>
-              </Link>
-
               <Link className="user-container-link save-item">
                 <div className="user-container-icon">
                   <span>
                     <i className="fa fa-heart">
-                      <span className="notification">{1}</span>
+                      {/* <span className="notification"></span> */}
                     </i>
                   </span>
                 </div>
@@ -68,7 +58,7 @@ function Header() {
                 <div className="user-container-icon">
                   <span>
                     <i className="fa fa-shopping-cart">
-                      <span className="notification">{1}</span>
+                      {/* <span className="notification"></span> */}
                     </i>
                   </span>
                 </div>

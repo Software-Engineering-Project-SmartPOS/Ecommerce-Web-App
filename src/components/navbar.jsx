@@ -71,11 +71,6 @@ function Navbar(props) {
             Discount
           </NavLink>
         </li>
-        <li className="products  navbar-list-item">
-          <NavLink to="" style={props.style}>
-            catageory
-          </NavLink>
-        </li>
 
         {userLogged ? (
           <li className="purchase-OrderList">

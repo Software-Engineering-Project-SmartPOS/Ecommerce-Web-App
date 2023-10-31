@@ -3,9 +3,12 @@ import { Link } from "react-router-dom";
 import "./sectionItem.css";
 import axios from "axios";
 
-console.log(import.meta.env.VITE_REST_API_URL);
 const apiOrder = axios.create({
   baseURL: import.meta.env.VITE_REST_API_URL + "/order",
+});
+
+const apiItem = axios.create({
+  baseURL: import.meta.env.VITE_REST_API_URL + "/item",
 });
 
 function SectionItem(props) {
@@ -14,11 +17,22 @@ function SectionItem(props) {
   const [cartCount, setCartCount] = useState(0);
   let dataToSend = { cart: cartCount, itemData: props };
 
+  const [isFavorite, setIsFavorite] = useState(false);
+
   useEffect(() => {
+    console.log(props.userId);
+    if (props.userId) {
+      let localUser = JSON.parse(localStorage.getItem("user"));
+
+      if (props.userId == localUser.id) {
+        setIsFavorite(true);
+      }
+    }
     const fetchImage = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8080/image/productFileSystem/${props.thumb.id}`
+          import.meta.env.VITE_REST_API_URL +
+            `/image/productFileSystem/${props.thumb.id}`
         );
 
         if (!response.ok) {
@@ -60,7 +74,7 @@ function SectionItem(props) {
         console.log("Error When Creating Order", error);
       }
     } else {
-      console.log("You have to select at leat one element");
+      console.log("You have to select at least one item");
     }
   };
 
@@ -73,10 +87,56 @@ function SectionItem(props) {
       setCartCount(cartCount - 1);
     }
   }
+
+  // Step 3: Handle saving/removing from favorites
+  const handleToggleFavorite = async (e) => {
+    const itemBody = {
+      id: props.id,
+      name: props.product_name,
+      price: props.price,
+      discount: props.discount,
+    };
+
+    if (isFavorite) {
+      // Remove the item from favorites
+      // Here, you can update your backend or local storage accordingly
+      setIsFavorite(false);
+    } else {
+      try {
+        const responseCreateItem = await apiItem.put(
+          "/createSavedItem",
+          itemBody,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (responseCreateItem.status === 200) {
+          console.log(responseCreateItem);
+        } else {
+          console.log("Creating Saved Item failed");
+        }
+      } catch (error) {
+        console.error("Error Creating Saved Item:", error);
+      }
+
+      setIsFavorite(true);
+    }
+  };
+
   return (
-    <div className="section-item-card" key={props.id} S>
+    <div className="section-item-card" key={props.id}>
+      <div className="favorite-button">
+        <i
+          className={`fa fa-heart ${isFavorite ? "is-favorite" : ""}`}
+          onClick={handleToggleFavorite}
+        ></i>
+      </div>
       <Link
-        className="sectiom-item-Link"
+        className="section-item-Link" // Fixed typo here, should be "section-item-Link"
         to={{
           pathname: `/products/Item/${props.id}/${cartCount}`,
           state: { data: props },

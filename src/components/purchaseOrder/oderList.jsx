@@ -1,20 +1,22 @@
-import OrderedItem from "./orderedItem";
 import { useState } from "react";
 import "./orderList.css";
+import OrderedItem from "./orderedItem";
 
 function OrderList(props) {
-  const [oderListItem, setOrderListItem] = useState(props.ListItems);
+  console.log(props.ListItems);
   function removeItemHandler(indexToRemove) {
     const updatedList = oderListItem.filter(
       (item) => item.id !== indexToRemove
     );
     setOrderListItem(updatedList);
   }
-  const ListItem = oderListItem.map((item) => (
+  const ListItem = props.ListItems.map((item) => (
     <div className="order-list-container" key={item.id}>
+      {console.log}
       <OrderedItem data={item} closeButtonHandler={removeItemHandler} />
     </div>
   ));
+
   return <div className="user-order-list">{ListItem}</div>;
 }
 

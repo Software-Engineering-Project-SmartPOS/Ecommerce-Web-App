@@ -1,36 +1,44 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import OrderList from "./oderList";
 import CurrentOrderCard from "../dataComponent/currentOrderData";
 import OrderedCard from "../dataComponent/orderedData";
 import "./purchaseOrderContent.css";
 
-function PurchaseOrderContent() {
-  const [showContent, setShowContent] = useState(true);
+function PurchaseOrderContent(props) {
+  const [content, setContent] = useState(props.content);
+  const [itemList, setItemList] = useState([]);
 
-  function handleCurrentTab() {
-    setShowContent(true);
+  useEffect(() => {
+    if (content) {
+      setItemList(props.currentOrders);
+      console.log("hi");
+    } else {
+      setItemList(props.orderedHistory);
+    }
+  }, [content, props.currentOrders, props.orderedHistory]);
+
+  function handleTabClick(isCurrentTab) {
+    setContent(isCurrentTab);
   }
 
-  function handleHistoryTab() {
-    setShowContent(false);
-  }
-  console.log(showContent);
   return (
     <div className="main-content-container">
       <div className="tab-links-container">
-        <button className="tab-links" onClick={handleCurrentTab}>
+        <button
+          className={`tab-links ${content ? "active" : ""}`}
+          onClick={() => handleTabClick(true)}
+        >
           Current Orders
         </button>
-        <button className="tablinks" onClick={handleHistoryTab}>
+        <button
+          className={`tab-links ${!content ? "active" : ""}`}
+          onClick={() => handleTabClick(false)}
+        >
           Order History
         </button>
       </div>
       <div className="tab-content">
-        {showContent ? (
-          <OrderList ListItems={CurrentOrderCard} />
-        ) : (
-          <OrderList ListItems={OrderedCard} />
-        )}
+        <OrderList ListItems={itemList} />
       </div>
     </div>
   );
