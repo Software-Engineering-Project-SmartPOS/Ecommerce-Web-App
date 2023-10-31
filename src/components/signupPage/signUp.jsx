@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 import axios from "axios";
 
 const apiAuth = axios.create({
-  baseURL: "http://localhost:8080/auth",
+  baseURL: import.meta.env.VITE_REST_API_URL + "/auth",
 });
 
 const SignUp = () => {
