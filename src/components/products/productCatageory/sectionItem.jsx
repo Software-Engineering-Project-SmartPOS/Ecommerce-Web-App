@@ -109,14 +109,16 @@ function SectionItem(props) {
         );
 
         if (responseCreateItem.status === 200) {
-          console.log(responseCreateItem);
         } else {
           console.log("deleting Saved Item failed");
+        }
+        setIsFavorite(false);
+        if (props.changeItem !== null) {
+          props.changeItem(responseCreateItem.data);
         }
       } catch (error) {
         console.error("Error deleting Saved Item:", error);
       }
-      setIsFavorite(false);
     } else {
       try {
         const responseCreateItem = await apiItem.put(
@@ -131,7 +133,6 @@ function SectionItem(props) {
         );
 
         if (responseCreateItem.status === 200) {
-          console.log(responseCreateItem);
         } else {
           console.log("Creating Saved Item failed");
         }

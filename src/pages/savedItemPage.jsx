@@ -34,6 +34,10 @@ function SavedItem() {
     fetchData();
   }, []);
 
+  function changeItemList(productList) {
+    setItemList(productList);
+  }
+
   return (
     <div className="discount-product-layout-container">
       <div className="discount-product-layout-section">
@@ -42,8 +46,7 @@ function SavedItem() {
       </div>
 
       <main className="discount-main-section">
-        s
-        <MainContent CatageoryList={itemList} />
+        <MainContent CatageoryList={itemList} changeItemList={changeItemList} />
       </main>
       <Footer className="discount-products-footer" />
     </div>
