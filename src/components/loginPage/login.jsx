@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
-import "./Login.css";
+import "./login.css";
 import axios from "axios";
 console.log(import.meta.env.VITE_REST_API_URL);
 const apiAuth = axios.create({
@@ -67,25 +67,11 @@ const Login = () => {
         <h2>Login</h2>
         <form action="" onSubmit={handleSubmit}>
           <div className="login-form-group">
-            <input
-              type="email"
-              id="username"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-              required
-            />
+            <input type="email" id="username" name="username" value={formData.username} onChange={handleChange} required />
             <span>User name</span>
           </div>
           <div className="login-form-group">
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
+            <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} required />
             <span>Password</span>
           </div>
           <div className="login-page-link-container">
