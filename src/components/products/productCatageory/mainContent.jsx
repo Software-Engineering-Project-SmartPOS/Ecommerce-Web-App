@@ -5,14 +5,14 @@ function MainContent(props) {
   const SectionItems = props.CatageoryList.map((sectionItem) => (
     <div>
       {" "}
-      {console.log(sectionItem)}
+      {console.log(sectionItem.savedByUsers)}
       <SectionItem
         id={sectionItem.id}
         thumb={sectionItem.fileData}
         product_name={sectionItem.name}
         price={sectionItem.price}
         discount={sectionItem.discount}
-        userId={sectionItem.savedByUsers.id}
+        user={sectionItem.savedByUsers}
       />
     </div>
   ));

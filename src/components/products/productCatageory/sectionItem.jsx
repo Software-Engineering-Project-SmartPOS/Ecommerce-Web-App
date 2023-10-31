@@ -20,14 +20,13 @@ function SectionItem(props) {
   const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
-    console.log(props.userId);
-    if (props.userId) {
+    for (let i = 0; i < props.user.length; i++) {
       let localUser = JSON.parse(localStorage.getItem("user"));
-
-      if (props.userId == localUser.id) {
+      if (props.user[i].id == localUser.id) {
         setIsFavorite(true);
       }
     }
+
     const fetchImage = async () => {
       try {
         const response = await fetch(
@@ -88,7 +87,6 @@ function SectionItem(props) {
     }
   }
 
-  // Step 3: Handle saving/removing from favorites
   const handleToggleFavorite = async (e) => {
     const itemBody = {
       id: props.id,
@@ -98,8 +96,26 @@ function SectionItem(props) {
     };
 
     if (isFavorite) {
-      // Remove the item from favorites
-      // Here, you can update your backend or local storage accordingly
+      try {
+        const responseCreateItem = await apiItem.put(
+          "/deleteSavedItem",
+          itemBody,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (responseCreateItem.status === 200) {
+          console.log(responseCreateItem);
+        } else {
+          console.log("deleting Saved Item failed");
+        }
+      } catch (error) {
+        console.error("Error deleting Saved Item:", error);
+      }
       setIsFavorite(false);
     } else {
       try {
