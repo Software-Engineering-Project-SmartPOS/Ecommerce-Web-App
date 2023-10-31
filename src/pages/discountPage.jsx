@@ -19,9 +19,7 @@ function Discounts() {
         const apiUrl = `${import.meta.env.VITE_REST_API_URL}/item/getAllItems`;
         const responseProductList = await apiItem.get(apiUrl);
 
-        const filteredItems = responseProductList.data.filter(
-          (item) => item.discount.trim() !== ""
-        );
+        const filteredItems = responseProductList.data.filter((item) => item.discount.trim() !== "");
         setItemList(filteredItems);
       } catch (error) {
         console.log("Error happening in data fetching", error);

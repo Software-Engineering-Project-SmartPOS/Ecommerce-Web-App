@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import "./signUp.css";
 import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 import axios from "axios";
-import { CallToActionSharp } from "@material-ui/icons";
 
 const apiAuth = axios.create({
-  baseURL: "http://localhost:8080/auth",
+  baseURL: import.meta.env.VITE_REST_API_URL + "/auth",
 });
 
 const SignUp = () => {
@@ -123,66 +122,27 @@ const SignUp = () => {
         <h2>Sign Up</h2>
         <form onSubmit={handleSubmit}>
           <div className="signup-form-group">
-            <input
-              type="text"
-              id="firstname"
-              name="firstname"
-              value={formData.firstname}
-              onChange={handleChange}
-              required
-            />
+            <input type="text" id="firstname" name="firstname" value={formData.firstname} onChange={handleChange} required />
             <span>First Name</span>
           </div>
           <div className="signup-form-group">
-            <input
-              type="text"
-              id="lastname"
-              name="lastname"
-              value={formData.lastname}
-              onChange={handleChange}
-              required
-            />
+            <input type="text" id="lastname" name="lastname" value={formData.lastname} onChange={handleChange} required />
             <span>Last Name</span>
           </div>
           <div className="signup-form-group">
-            <input
-              type="email"
-              id="username"
-              name="username"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
+            <input type="email" id="username" name="username" value={formData.email} onChange={handleChange} required />
             <span>Email</span>
           </div>
           <div className="signup-form-group">
-            <input
-              type="text"
-              id="address"
-              name="address"
-              value={formData.address}
-              onChange={handleChange}
-              required
-            />
+            <input type="text" id="address" name="address" value={formData.address} onChange={handleChange} required />
             <span>Address</span>
           </div>
           <div className="signup-form-group">
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
+            <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} required />
             <span>Password</span>
           </div>
           <div className="user-signup-button">
-            <button
-              className="signup-button"
-              type="submit"
-              onClick={handleSubmit}
-            >
+            <button className="signup-button" type="submit" onClick={handleSubmit}>
               Sign Up
             </button>
           </div>
