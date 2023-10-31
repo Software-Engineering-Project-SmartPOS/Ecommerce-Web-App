@@ -16,7 +16,9 @@ function ProductLayout(props) {
       </div>
 
       <main className="main-section">{props.children}</main>
-      <Footer className="products-footer" />
+      <div className="product-layout-footer">
+        <Footer className="products-footer" />
+      </div>
     </div>
   );
 }

@@ -4,7 +4,7 @@ import Navbar from "../components/navbar";
 import Header from "../components/header";
 import MainContent from "../components/products/productCatageory/mainContent";
 import axios from "axios";
-import "./discount.css";
+import "./savedItemPage.css";
 
 const apiItem = axios.create({
   baseURL: import.meta.env.VITE_REST_API_URL + "item",
@@ -39,16 +39,16 @@ function SavedItem() {
   }
 
   return (
-    <div className="discount-product-layout-container">
-      <div className="discount-product-layout-section">
+    <div className="product-layout-container">
+      <div className="product-layout-section">
         <Header />
         <Navbar />
       </div>
 
-      <main className="discount-main-section">
+      <main className="main-section">
         <MainContent CatageoryList={itemList} changeItemList={changeItemList} />
       </main>
-      <Footer className="discount-products-footer" />
+      <Footer className="products-footer" />
     </div>
   );
 }
