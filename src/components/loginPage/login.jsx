@@ -84,7 +84,7 @@ const Login = () => {
           </div>
         </form>
         <div className="login-page-link-container">
-          <Link to="/forgot-password">Back</Link>
+          <Link to="/">Back</Link>
           <Link to="/SignupPage">Sign Up</Link>
         </div>
       </div>
