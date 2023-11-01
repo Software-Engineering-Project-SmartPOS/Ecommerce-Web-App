@@ -55,6 +55,7 @@ button:hover {
 
 .search-bar {
   margin-top: 20px;
+  width: 80%;
 }
 
 .search-input {

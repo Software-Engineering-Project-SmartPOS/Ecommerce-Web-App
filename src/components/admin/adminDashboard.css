@@ -102,13 +102,11 @@ td {
   text-align: left;
 }
 
-/* Style the table header (th) differently */
 th {
-  background-color: #f0f0f0; /* Header background color */
+  background-color: #f0f0f0;
   font-weight: 600;
 }
 
-/* Today's Transactions Section */
 .today-transactions {
   background-color: #ffffff; /* White background */
   border-radius: 8px;
@@ -126,4 +124,47 @@ th {
 
 .chart-container {
   margin-top: 20px;
+}
+.product-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-image {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.product-image img {
+  max-width: 100%;
+}
+
+.product-details {
+  flex: 2;
+}
+
+.product-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.product-price {
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.product-details {
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.product-discount {
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.product-quantity {
+  font-size: 1rem;
 }
