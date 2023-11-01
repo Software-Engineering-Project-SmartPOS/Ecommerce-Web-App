@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import defaultImage from "../../assets/layout/background1.jpg";
 import "./photoEdit.css";
 import axios from "axios";
-
 const apiImage = axios.create({
   baseURL: import.meta.env.VITE_REST_API_URL + "/image",
 });
@@ -17,7 +16,8 @@ const ImageUpload = () => {
   useEffect(() => {
     try {
       fetch(
-        `http://localhost:8080/image/fileSystem/${storedUser.fileData.id}`,
+        import.meta.env.VITE_REST_API_URL +
+          `/image/fileSystem/${storedUser.fileData.id}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,

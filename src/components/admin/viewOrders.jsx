@@ -1,19 +1,40 @@
 import React, { useState, useEffect } from "react";
 import "./viewOrders.css";
+import axios from "axios";
+const apiOrder = axios.create({
+  baseURL: import.meta.env.VITE_REST_API_URL + "/order",
+});
 
 function ViewOrders() {
   const [orders, setOrders] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [filteredOrders, setFilteredOrders] = useState([]);
-  const [editRow, setEditRow] = useState(null); // Track the row being edited
-  const [editedStatus, setEditedStatus] = useState(""); // Track the edited status
+  const [editRow, setEditRow] = useState(null);
+  const [editedStatus, setEditedStatus] = useState("");
 
   useEffect(() => {
-    // Simulate fetching orders from an API
     fetchOrders()
       .then((data) => {
-        setOrders(data);
-        setFilteredOrders(data); // Initially, set filtered orders to all orders
+        let tempOrderList = [];
+        for (let i = 0; i < data.length; i++) {
+          const priceString = data[i].item.price;
+          const priceFloat = parseFloat(priceString.replace("Rs.", "").trim());
+          const priceInt = Math.round(priceFloat);
+
+          tempOrderList.push({
+            id: data[i].id,
+            productName: data[i].item.name,
+            brand: data[i].item.brand,
+            status: data[i].status,
+            quantity: data[i].quantity,
+            customerName: data[i].user.email,
+            unitPrice: data[i].item.price,
+            totalPrice: data[i].quantity * priceInt,
+            item: data[i].item,
+          });
+        }
+        setOrders(tempOrderList);
+        setFilteredOrders(tempOrderList);
       })
       .catch((error) => {
         console.error("Error fetching orders:", error);
@@ -21,7 +42,6 @@ function ViewOrders() {
   }, []);
 
   useEffect(() => {
-    // Update the filteredOrders whenever searchText changes
     const filtered = orders.filter((order) => {
       return (
         order.status.toLowerCase().includes(searchText.toLowerCase()) ||
@@ -32,42 +52,20 @@ function ViewOrders() {
     setFilteredOrders(filtered);
   }, [searchText, orders]);
 
-  const fetchOrders = () => {
-    // Simulate an API call to fetch orders (replace with your actual API call)
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve([
-          {
-            id: 1,
-            name: "Product 1",
-            brand: "Brand A",
-            status: "Shipped",
-            customerName: "Customer A",
-            quantity: 3,
-            unitPrice: 25.0,
-          },
-          {
-            id: 2,
-            name: "Product 2",
-            brand: "Brand B",
-            status: "Pending",
-            customerName: "Customer B",
-            quantity: 2,
-            unitPrice: 15.5,
-          },
-          {
-            id: 3,
-            name: "Product 3",
-            brand: "Brand C",
-            status: "Delivered",
-            customerName: "Customer C",
-            quantity: 1,
-            unitPrice: 10.0,
-          },
-          // Add more orders here
-        ]);
-      }, 1000); // Simulating a 1-second API call
-    });
+  const fetchOrders = async () => {
+    try {
+      const response = await apiOrder.get("/getAllOrders", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      return response.data;
+    } catch (error) {
+      console.error("Error while fetching data:", error);
+      throw error;
+    }
   };
 
   const handleSearch = (event) => {
@@ -78,14 +76,43 @@ function ViewOrders() {
     setEditRow(rowId);
   };
 
-  const handleSaveStatus = (order) => {
-    // Simulate an API call to update the order's status
-    // Replace this with the actual API call to update the status in your system
+  const handleSaveStatus = async (order) => {
     const updatedOrders = orders.map((o) =>
       o.id === order.id ? { ...o, status: editedStatus } : o
     );
+    const orderBodies = [];
+
+    if (updatedOrders) {
+      updatedOrders.map((item) => {
+        const orderToEdit = {
+          id: item.id,
+          quantity: item.quantity,
+          item: item.item,
+          status: item.status,
+        };
+        orderBodies.push(orderToEdit);
+        console.log(orderToEdit);
+      });
+    }
+    console.log(orderBodies);
+
+    try {
+      const paymentOrderResponse = await apiOrder.put(
+        "/changeAllStatus",
+        orderBodies,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+    } catch (error) {
+      console.log("Error happenig changing Order data", error);
+    }
+
     setOrders(updatedOrders);
-    setEditRow(null); // Reset the edited row
+    setEditRow(null);
   };
 
   const handleStatusChange = (event) => {
@@ -112,8 +139,8 @@ function ViewOrders() {
             <tr>
               <th className="order-header">Order Name</th>
               <th className="order-header">Brand</th>
-              <th className="order-header">Status</th>
-              <th className="order-header">Customer Name</th>
+              <th className="order-header order-status">Status</th>
+              <th className="order-header">Customer Username</th>
               <th className="order-header">Quantity</th>
               <th className="order-header">Unit Price</th>
               <th className="order-header">Total Price</th>
@@ -123,13 +150,12 @@ function ViewOrders() {
           <tbody>
             {filteredOrders.map((order, index) => (
               <tr key={index} className="order-row">
-                <td className="order-data">{order.name}</td>
+                <td className="order-data">{order.productName}</td>
                 <td className="order-data">{order.brand}</td>
                 <td className="order-data">
                   {editRow === order.id ? (
                     <select value={editedStatus} onChange={handleStatusChange}>
-                      <option value="Shipped">Shipped</option>
-                      <option value="Pending">Pending</option>
+                      <option value="Purchased">Purchased</option>
                       <option value="Delivered">Delivered</option>
                     </select>
                   ) : (
@@ -139,10 +165,8 @@ function ViewOrders() {
                 <td className="order-data">{order.customerName}</td>
                 <td className="order-data">{order.quantity}</td>
                 <td className="order-data">{order.unitPrice}</td>
+                <td className="order-data">{order.totalPrice}</td>
                 <td className="order-data">
-                  {order.unitPrice * order.quantity}
-                </td>
-                <div className="order-data">
                   {editRow === order.id ? (
                     <button onClick={() => handleSaveStatus(order)}>
                       Save
@@ -152,7 +176,7 @@ function ViewOrders() {
                       Edit
                     </button>
                   )}
-                </div>
+                </td>
               </tr>
             ))}
           </tbody>

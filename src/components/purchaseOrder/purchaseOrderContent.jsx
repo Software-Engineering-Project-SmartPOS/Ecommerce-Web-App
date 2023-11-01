@@ -11,7 +11,6 @@ function PurchaseOrderContent(props) {
   useEffect(() => {
     if (content) {
       setItemList(props.currentOrders);
-      console.log("hi");
     } else {
       setItemList(props.orderedHistory);
     }

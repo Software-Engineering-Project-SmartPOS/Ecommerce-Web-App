@@ -19,7 +19,7 @@ function MainContent(props) {
   };
 
   const SectionItems = props.CatageoryList.map((sectionItem) => (
-    <div>
+    <div key={sectionItem.id}>
       <SectionItem
         id={sectionItem.id}
         thumb={sectionItem.fileData}

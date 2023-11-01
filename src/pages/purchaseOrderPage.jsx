@@ -25,10 +25,10 @@ function PurchaseOrderPage() {
       });
 
       const currentOrdersData = orderResponse.data.filter(
-        (item) => item.status === "purchased"
+        (item) => item.status === "Purchased"
       );
       const orderedHistoryData = orderResponse.data.filter(
-        (item) => item.status === "ordered"
+        (item) => item.status === "Delivered"
       );
 
       setCurrentOrders(currentOrdersData);

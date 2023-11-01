@@ -17,7 +17,7 @@ function PaymentSection(props) {
           id: item.id,
           quantity: item.quantity,
           item: item.item,
-          status: "purchased",
+          status: "Purchased",
         };
         orderBodies.push(orderToEdit);
         console.log(orderToEdit);

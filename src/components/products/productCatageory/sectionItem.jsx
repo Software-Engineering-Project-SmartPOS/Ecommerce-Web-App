@@ -44,12 +44,11 @@ function SectionItem(props) {
         setSelectedImage(objectUrl);
       } catch (error) {
         console.error("Error fetching image:", error);
-        setSelectedImage(defaultImage);
       }
     };
 
     fetchImage();
-  }, [props.thumb.id]);
+  }, [props.thumb]);
 
   const AddCartHandler = async (product) => {
     let order = {
