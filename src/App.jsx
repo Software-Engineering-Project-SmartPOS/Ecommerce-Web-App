@@ -20,6 +20,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
+          <Route path="/About" element={<Home />} />
           <Route path="/AdminPortal" element={<AdminPortal />} />
           <Route path="/CreateItem" element={<Sidebar />} />
           <Route path="/" element={<Home />} />

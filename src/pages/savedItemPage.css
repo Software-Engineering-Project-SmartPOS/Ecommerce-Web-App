@@ -9,6 +9,7 @@
   background-position: center;
 }
 .main-section {
+  min-height: 100vh;
   padding-top: 20vh;
 }
 .product-layout-container Footer {

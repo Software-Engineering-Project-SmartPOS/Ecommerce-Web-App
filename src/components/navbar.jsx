@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { Link } from "react-scroll";
+import { Link as ScrollLink } from "react-scroll";
 import React, { useState, useEffect } from "react";
 import "./navbar.css";
 
@@ -36,7 +37,7 @@ function Navbar(props) {
     <div className="navbar-container">
       <div className="home">
         <NavLink to="/" className="navbar-list-item-link">
-          <i className="fas fa-home" style={props.style}></i>
+          <i className="fas fa-home"></i>
         </NavLink>
       </div>
 
@@ -50,39 +51,27 @@ function Navbar(props) {
         }
       >
         <li className="products  navbar-list-item">
-          <Link
-            to="about-us-section"
-            spy={true}
-            smooth={true}
-            offset={-70}
-            duration={500}
-            className="navbar-about-section-link"
-          >
-            About
-          </Link>
-        </li>
-        <li className="products  navbar-list-item">
-          <NavLink to="/Products" style={props.style}>
-            Products
+          <NavLink to="/About" scrollToAbout={true}>
+            About Us
           </NavLink>
+        </li>
+
+        <li className="products  navbar-list-item">
+          <NavLink to="/Products">Products</NavLink>
         </li>
         <li className="discount  navbar-list-item">
-          <NavLink to="/Discount" style={props.style}>
-            Discount
-          </NavLink>
+          <NavLink to="/Discount">Discount</NavLink>
         </li>
 
         {userLogged ? (
           <li className="purchase-OrderList">
-            <NavLink to="/PurchaseOrder" style={props.style}>
+            <NavLink to="/PurchaseOrder">
               <span className="inline-text">Purchase Order</span>
             </NavLink>
           </li>
         ) : null}
         <li className="products  navbar-list-item">
-          <NavLink to="" style={props.style}>
-            Contact us
-          </NavLink>
+          <NavLink to="">Contact us</NavLink>
         </li>
       </ul>
 
