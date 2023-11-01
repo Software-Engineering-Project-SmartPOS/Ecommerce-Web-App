@@ -44,6 +44,8 @@ function CreateItem() {
       ...item,
       image: imageFile,
     });
+
+    formData.append("image", imageFile);
   };
 
   const handleSubmit = async () => {
@@ -56,58 +58,67 @@ function CreateItem() {
       return;
     }
 
-    // try {
-    console.log(item);
-    let itemBody = {
-      name: item.name,
-      brand: item.brand,
-      price: "Rs." + item.price + ".00",
-      discount: item.discount + "%",
-      category: item.category,
-      details: item.details,
-      quantity: item.quantity,
-    };
+    try {
+      let itemBody = {
+        name: item.name,
+        brand: item.brand,
+        price: "Rs." + item.price + ".00",
+        discount: item.discount + "%",
+        category: item.category,
+        details: item.details,
+        quantity: item.quantity,
+      };
 
-    // Send a POST request to create the item
-    // const createItemResponse = await apiItem.post("/createItem", itemBody, {
-    //   headers: {
-    //     Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
-    //     "Content-Type": "application/json",
-    //   },
-    // });
+      const createItemResponse = await apiItem.post("/createItem", itemBody, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+          "Content-Type": "application/json",
+        },
+      });
 
-    // if (createItemResponse.status === 200) {
-    // Item created successfully, now handle the image upload
-    const formData = new FormData();
-    formData.append("image", 1);
-    // formData.append("relation", `item${createItemResponse.data.id}`);
+      if (createItemResponse.status === 200) {
+        console.log(createItemResponse);
+        const formData = new FormData();
+        formData.append("image", item.image);
+        formData.append("relation", `item${createItemResponse.data.id}`);
 
-    console.log(formData);
-    // Send a POST request to upload the image
-    // const responseUserImageChange = await apiImage.post(
-    //   "/fileSystem",
-    //   formData,
-    //   {
-    //     headers: {
-    //       Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
-    //       "Content-Type": "multipart/form-data",
-    //     },
-    //   }
-    // );
+        console.log(formData.getAll("relation"));
 
-    //   if (responseUserImageChange.status === 200) {
-    //     // Image uploaded successfully
-    //     alert("Item and image uploaded successfully!");
-    //   } else {
-    //     alert("Failed to upload the image.");
-    //   }
-    // } else {
-    //   alert("Failed to create the item.");
-    // }
-    // } catch (error) {
-    //   console.error("Error:", error);
-    //   alert("An error occurred while processing your request.");
-    // }
+        const responseUserImageChange = await apiImage.post(
+          "/fileSystem",
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+
+        if (responseUserImageChange.status === 200) {
+          // Image uploaded successfully
+          alert("Item and image uploaded successfully!");
+
+          setItem({
+            name: "",
+            brand: "",
+            price: 0,
+            discount: 0,
+            category: "Select Category",
+            details: "",
+            quantity: 0,
+            image: null,
+          });
+        } else {
+          alert("Failed to upload the image.");
+        }
+      } else {
+        alert("Failed to create the item.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred while processing your request.");
+    }
   };
 
   return (
