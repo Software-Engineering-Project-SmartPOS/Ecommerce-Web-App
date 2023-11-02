@@ -6,7 +6,6 @@ import Footer from "../components/footer";
 import Header from "../components/header";
 
 function ProductItemPage() {
-  const itemlist = [...FruitCard, ...FruitCard, ...FruitCard];
   return (
     <div className="product-page-container">
       <Header />

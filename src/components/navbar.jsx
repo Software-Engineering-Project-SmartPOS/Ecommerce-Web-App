@@ -1,6 +1,5 @@
-import { NavLink } from "react-router-dom";
-import { Link } from "react-scroll";
-import { Link as ScrollLink } from "react-scroll";
+import { Link, NavLink } from "react-router-dom";
+
 import React, { useState, useEffect } from "react";
 import "./navbar.css";
 
@@ -70,22 +69,23 @@ function Navbar(props) {
             </NavLink>
           </li>
         ) : null}
-        <li className="products  navbar-list-item">
-          <NavLink to="">Contact us</NavLink>
-        </li>
       </ul>
 
-      <div className="user-container-navbar">
-        {menuIconClicked ? (
-          <button className="menu-button" onClick={menuCloseHandler}>
-            <i className="fas fa-times-circle"></i>
-          </button>
+      {screenWidth < 990 ? (
+        menuIconClicked ? (
+          <div className="user-container-navbar">
+            <button className="menu-button" onClick={menuCloseHandler}>
+              <i className="fas fa-times-circle"></i>
+            </button>
+          </div>
         ) : (
-          <button className="menu-button" onClick={menuOpenHandler}>
-            <i className="fas fa-bars"></i>
-          </button>
-        )}
-      </div>
+          <div className="user-container-navbar">
+            <button className="menu-button" onClick={menuOpenHandler}>
+              <i className="fas fa-bars"></i>
+            </button>
+          </div>
+        )
+      ) : null}
     </div>
   );
 }

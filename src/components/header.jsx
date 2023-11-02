@@ -2,6 +2,7 @@ import Logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import "./header.css";
+import Navbar from "./navbar";
 
 function Header() {
   const loginStatus =

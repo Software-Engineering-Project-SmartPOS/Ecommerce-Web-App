@@ -36,13 +36,13 @@ function SearchBar() {
               Categories
             </option>
 
-            <option value="Vegetables">Vegetables</option>
+            <option value="Vegetable">Vegetables</option>
             <option value="Fruit">Fruits</option>
-            <option value="Meats">Meats</option>
+            <option value="Meat">Meats</option>
             <option value="Fish">Fish</option>
             <option value="Grocery">Grocery</option>
             <option value="Frozen">Frozen Food</option>
-            <option value="Beverages">Beverages</option>
+            <option value="Beverage">Beverages</option>
             <option value="Household">Household</option>
           </select>
 

@@ -1,12 +1,13 @@
 .main-layout-section {
   top: 0;
   position: absolute;
-  height: 100vh;
+  height: 120vh;
   width: 100%;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center top 75px;
-  background-image: url("../assets/layout/background1.jpg");
+  background-image: url("../assets/layout/coverPhoto.jpg");
+  margin-bottom: 10vh;
 }
 .header-navbar {
   backdrop-filter: blur(15px);
@@ -19,4 +20,16 @@
 }
 .main-layout-footer {
   bottom: 0;
+}
+.header-navbar {
+  position: relative; /* Position the background text */
+  bottom: 0; /* At the bottom. Use top:0 to append it to the top */
+  background: rgb(0, 0, 0); /* Fallback color */
+  background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+  color: #f1f1f1; /* Grey text */
+  width: 100%; /* Full width */
+  padding: 20px;
+}
+main {
+  padding-top: 20vh;
 }

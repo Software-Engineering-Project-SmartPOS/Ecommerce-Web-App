@@ -1,50 +1,58 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import Carousel from "react-spring-3d-carousel";
-import { v4 as uuidv4 } from "uuid";
 import { config } from "react-spring";
 import "./carouselSection.css";
+import { NavLink } from "react-router-dom";
 
 import Slide from "./slide";
 
-export default class CarouselSection extends Component {
-  state = {
-    goToSlide: 0,
-    offsetRadius: 1,
-    showNavigation: false,
-    config: config.gentle,
-  };
-  slides = this.props.data
+function CarouselSection(props) {
+  const [goToSlide, setGoToSlide] = useState(0);
+  const offsetRadius = 1;
+  const showNavigation = false;
+  const configOptions = config.gentle;
+
+  const slides = props.data
     .map((item) => ({
       key: item.id,
       content: (
         <Slide
           id={item.id}
-          thumb={item.thumb}
-          product_name={item.product_name}
+          thumb={item.fileData}
+          product_name={item.name}
+          price={item.price}
         />
       ),
     }))
-    .map((slide, index) => {
-      return { ...slide, onClick: () => this.setState({ goToSlide: index }) };
-    });
+    .map((slide, index) => ({
+      ...slide,
+      onClick: () => setGoToSlide(index),
+    }));
 
-  render() {
-    return (
-      <section className="carousel-section">
-        <h2 className="carousel-title">{this.props.title}</h2>
-        <div
-          style={{ width: "80%", height: "500px", margin: "20px auto" }}
-          className="carousel-container"
-        >
-          <Carousel
-            slides={this.slides}
-            goToSlide={this.state.goToSlide}
-            offsetRadius={this.state.offsetRadius}
-            showNavigation={this.state.showNavigation}
-            animationConfig={this.state.config}
-          />
-        </div>
-      </section>
-    );
-  }
+  return (
+    <section className="carousel-section">
+      <NavLink
+        className="carousel-nav-link"
+        to={{
+          pathname: `/Products/${props.title}`,
+        }}
+      >
+        <h2 className="carousel-title">{props.title}</h2>
+      </NavLink>
+      <div
+        style={{ width: "80%", height: "500px", margin: "20px auto" }}
+        className="carousel-container"
+      >
+        <Carousel
+          slides={slides}
+          goToSlide={goToSlide}
+          offsetRadius={offsetRadius}
+          showNavigation={showNavigation}
+          animationConfig={configOptions}
+        />
+      </div>
+    </section>
+  );
 }
+
+export default CarouselSection;

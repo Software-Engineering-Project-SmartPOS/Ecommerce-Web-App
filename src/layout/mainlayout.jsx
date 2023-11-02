@@ -1,10 +1,10 @@
 import React from "react";
-import { useEffect, useState } from "react";
 import Navbar from "../components/navbar";
 import Header from "../components/header";
 import "./mainlayout.css";
 import Footer from "../components/footer";
 import SearchBar from "../components/searchBar";
+import backgroundImage from "../assets/layout/coverPhoto.jpg";
 
 function MainLayout({ children }) {
   return (
