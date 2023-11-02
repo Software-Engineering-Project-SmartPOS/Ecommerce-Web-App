@@ -176,49 +176,51 @@ function AdminDashboard() {
           </tbody>
         </table>
       </div> */}
-
-      <div className="product-card">
-        <div className="product-image">
-          <img src={image} alt={Image} />
+      {todayTransactions.length !== 0 ? (
+        <div className="product-card">
+          <div className="product-image">
+            <img src={image} alt={Image} />
+          </div>
+          <div className="product-details">
+            <h4 className="product-name">{mostOrderedProducts.productName}</h4>
+            <p className="product-price">
+              Price: {mostOrderedProducts.productPrice}
+            </p>
+            <p className="product-details">
+              Details: {mostOrderedProducts.productDetails}
+            </p>
+            <p className="product-discount">
+              Discount: {mostOrderedProducts.productDiscount}
+            </p>
+            <p className="product-quantity">
+              Ordered Quantity: {mostOrderedProducts.productQuantity}
+            </p>
+          </div>
         </div>
-        <div className="product-details">
-          <h4 className="product-name">{mostOrderedProducts.productName}</h4>
-          <p className="product-price">
-            Price: {mostOrderedProducts.productPrice}
-          </p>
-          <p className="product-details">
-            Details: {mostOrderedProducts.productDetails}
-          </p>
-          <p className="product-discount">
-            Discount: {mostOrderedProducts.productDiscount}
-          </p>
-          <p className="product-quantity">
-            Ordered Quantity: {mostOrderedProducts.productQuantity}
-          </p>
-        </div>
-      </div>
-
-      <div className="today-transactions">
-        <h3>Today's Transactions</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Product Name</th>
-              <th>Brand</th>
-              <th>Count</th>
-            </tr>
-          </thead>
-          <tbody>
-            {todayTransactions.map((product, index) => (
-              <tr key={index}>
-                <td>{product.product}</td>
-                <td>{product.brand}</td>
-                <td>{product.count}</td>
+      ) : null}
+      {todayTransactions.length !== 0 ? (
+        <div className="today-transactions">
+          <h3>Today's Transactions</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Product Name</th>
+                <th>Brand</th>
+                <th>Count</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {todayTransactions.map((product, index) => (
+                <tr key={index}>
+                  <td>{product.product}</td>
+                  <td>{product.brand}</td>
+                  <td>{product.count}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : null}
     </div>
   );
 }

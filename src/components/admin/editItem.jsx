@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./createItem.css";
 import axios from "axios";
 
@@ -9,20 +9,58 @@ const apiImage = axios.create({
   baseURL: import.meta.env.VITE_REST_API_URL + "/image",
 });
 
-function CreateItem() {
+function EditItem(props) {
+  console.log(props.item);
+
+  const priceString = props.item.price;
+  const priceFloat = parseFloat(priceString.replace("Rs.", "").trim());
+  const priceInt = Math.round(priceFloat);
+  const percentageString = props.item.discount;
+  const percentageValue = parseInt(percentageString, 10);
+
   const [item, setItem] = useState({
-    name: "",
-    brand: "",
-    price: 0,
-    discount: 0,
-    category: "Select Category",
-    details: "",
-    quantity: 0,
-    image: null,
+    name: props.item.name,
+    brand: props.item.brand,
+    price: priceInt,
+    discount: percentageValue,
+    category: props.item.category,
+    details: props.item.details,
+    quantity: props.item.quantity,
+    image: "",
   });
 
-  const [nameError, setNameError] = useState(false); // State to track name validation
+  useEffect(() => {
+    const fetchImage = async () => {
+      try {
+        const response = await fetch(
+          import.meta.env.VITE_REST_API_URL +
+            `/image/productFileSystem/${props.item.fileData.id}`
+        );
 
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const blob = await response.blob();
+        console.log(blob);
+
+        // Create a File object from the Blob
+        const imageFileName = props.item.fileData.name; // Replace with the actual file name
+        const imageFile = new File([blob], imageFileName, { type: blob.type });
+        console.log(imageFile);
+        setItem({
+          ...item,
+          image: imageFile, // Assuming `image` is the key in your state for the image
+        });
+      } catch (error) {
+        console.error("Error fetching image:", error);
+      }
+    };
+
+    fetchImage();
+  }, [props.item.fileData]);
+
+  const [nameError, setNameError] = useState(false);
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setItem({
@@ -44,7 +82,6 @@ function CreateItem() {
       ...item,
       image: imageFile,
     });
-    console.log(imageFile);
   };
 
   const handleSubmit = async () => {
@@ -59,6 +96,7 @@ function CreateItem() {
 
     try {
       let itemBody = {
+        id: props.item.id,
         name: item.name,
         brand: item.brand,
         price: "Rs." + item.price + ".00",
@@ -68,49 +106,53 @@ function CreateItem() {
         quantity: item.quantity,
       };
 
-      const createItemResponse = await apiItem.post("/createItem", itemBody, {
+      const editItemResponse = await apiItem.put("/editItem", itemBody, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
           "Content-Type": "application/json",
         },
       });
 
-      if (createItemResponse.status === 200) {
-        console.log(createItemResponse);
-
+      if (editItemResponse.status === 200) {
+        console.log(editItemResponse);
         const formData = new FormData();
         formData.append("image", item.image);
-        formData.append("relation", `item${createItemResponse.data.id}`);
+        formData.append("relation", `item${editItemResponse.data.id}`);
+        const deleteFileBody = {
+          itemId: props.item.id,
+          fileId: props.item.fileData.id,
+        };
+        console.log(deleteFileBody);
+        try {
+          const responseImageDelete = await apiImage.put(
+            "/deleteImage",
+            deleteFileBody,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          console.log(responseImageDelete);
+        } catch (error) {
+          console.error("Error Deleting the Photo:", error);
+        }
 
-        console.log(formData.getAll("relation"));
-
-        const responseUserImageChange = await apiImage.post(
-          "/fileSystem",
-          formData,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
-
-        if (responseUserImageChange.status === 200) {
-          // Image uploaded successfully
-          alert("Item and image uploaded successfully!");
-
-          setItem({
-            name: "",
-            brand: "",
-            price: 0,
-            discount: 0,
-            category: "Select Category",
-            details: "",
-            quantity: 0,
-            image: null,
-          });
-        } else {
-          alert("Failed to upload the image.");
+        try {
+          const responseItemImageChange = await apiImage.post(
+            "/fileSystem",
+            formData,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          );
+          console.log(responseItemImageChange);
+        } catch (error) {
+          console.error("Error Uploading the Photo:", error);
         }
       } else {
         alert("Failed to create the item.");
@@ -164,7 +206,7 @@ function CreateItem() {
               />
             </div>
             <div className="form-field">
-              <label htmlFor="discount">Discount (%):</label>
+              <label htmlFor="discount">Discount:</label>
               <input
                 type="number"
                 id="discount"
@@ -224,7 +266,7 @@ function CreateItem() {
               <input
                 type="file"
                 id="image"
-                name="image" // Make sure this matches the key in the state
+                name="image"
                 accept="image/*"
                 onChange={handleImageChange}
               />
@@ -235,7 +277,7 @@ function CreateItem() {
                     alt="Image Preview"
                     className="image-preview"
                     width="200"
-                    height="150"
+                    height="200"
                   />
                 )}
               </div>
@@ -251,4 +293,4 @@ function CreateItem() {
   );
 }
 
-export default CreateItem;
+export default EditItem;

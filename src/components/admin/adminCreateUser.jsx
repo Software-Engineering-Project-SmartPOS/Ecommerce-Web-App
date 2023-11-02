@@ -281,7 +281,7 @@ function AdminCreateUser() {
             onChange={handleImageChange}
             ref={fileInputRef}
           />
-          <div className="create-item-image">
+          <div className="create-account-image">
             {user.image && (
               <img
                 src={URL.createObjectURL(user.image)}

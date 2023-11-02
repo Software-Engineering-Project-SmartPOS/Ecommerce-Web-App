@@ -37,7 +37,7 @@ function SectionItem(props) {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-
+        console.log(response);
         const blob = await response.blob();
         const objectUrl = URL.createObjectURL(blob);
 

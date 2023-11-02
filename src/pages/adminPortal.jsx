@@ -8,9 +8,10 @@ import AdminCreateUser from "../components/admin/adminCreateUser";
 import AdminViewCustomer from "../components/admin/adminViewCustomer";
 import Home from "./homePage";
 import axios from "axios";
+import AdminViewItem from "../components/admin/adminViewItem";
 
 const apiAuth = axios.create({
-  baseURL: "http://localhost:8080/auth",
+  baseURL: import.meta.env.VITE_REST_API_URL + "/auth",
 });
 
 function AdminPortal() {
@@ -51,6 +52,8 @@ function AdminPortal() {
     componentToRender = <AdminDashboard />;
   } else if (selectedButton === "Create Products") {
     componentToRender = <CreateItem />;
+  } else if (selectedButton === "View Products") {
+    componentToRender = <AdminViewItem />;
   } else if (selectedButton === "View Orders") {
     componentToRender = <ViewOrders />;
   } else if (selectedButton === "Create Account") {

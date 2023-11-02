@@ -1,0 +1,74 @@
+.admin-section-item-card {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  max-width: 250px;
+  height: 270px;
+  max-height: 270px;
+  border: 3px solid #ddd;
+  border-radius: 5px;
+  margin: 40px 60px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+  border-radius: 20px;
+}
+
+.admin-section-item-card:hover {
+  transform: scale(1.05);
+}
+
+.admin-section-item-upper-part {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.admin-section-item-image {
+  width: 150px;
+  height: 150px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.admin-section-item-discount {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #f00;
+  color: #fff;
+  padding: 5px 10px;
+  border-top-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.admin-section-item-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+}
+
+.admin-section-item-title {
+  margin: 0;
+}
+
+.admin-section-item-price {
+  color: #f00;
+  font-weight: bold;
+}
+.icon-container {
+  display: flex;
+  justify-content: end;
+}
+
+.icon-container i {
+  margin: 0 5px;
+  cursor: pointer;
+}
+.icon-container i:hover {
+  transform: scale(1.1);
+  color: #f00;
+}

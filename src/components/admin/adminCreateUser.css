@@ -55,7 +55,7 @@ textarea {
 .error-message {
   color: red;
 }
-.create-item-image {
+.create-account-image {
   position: fixed;
   max-width: 20%;
   width: 20%;
@@ -66,10 +66,11 @@ textarea {
   padding: 10px;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  height: 30%;
 }
 
 .image-preview {
   max-width: 100%;
-  width: 100%;
+  width: 40%;
   height: auto;
 }
