@@ -12,24 +12,28 @@
   background-color: rgb(14, 4, 11);
 }
 .user-page-container header i {
-  color: #b7f6ee;
+  color: antiquewhite;
 }
 .user-page-container header a {
-  color: #00dfc4;
+  color: antiquewhite;
 }
 .user-page-container header i:hover {
-  color: #00dfc4;
+  color: antiquewhite;
 
   transform: scale(1.2);
 }
 .user-page-container .navbar-container .navbar-list li a {
-  color: #b7f6ee;
+  color: antiquewhite;
 }
 .user-page-container .navbar-container .navbar-list li a.active {
-  color: #00dfc4;
+  color: rgb(162, 246, 208);
 }
-.user-page-container .navbar-container .navbar-list li a:hover {
-  color: #00dfc4;
+
+.user-page-container .navbar-container .navbar-list li a.active {
+  color: rgb(162, 246, 208);
+}
+.main-navbar .navbar-user-container .user-container-link:hover {
+  color: rgb(162, 246, 208);
 }
 .user-page-container .navbar-container {
   background: rgb(14, 4, 11);

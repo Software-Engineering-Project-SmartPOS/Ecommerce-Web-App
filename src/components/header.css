@@ -110,3 +110,7 @@ header {
 .import-navbar {
   width: 30%;
 }
+.navbar-user-container.user-container a.active {
+  color: rgb(147, 7, 80);
+  font-weight: 700;
+}

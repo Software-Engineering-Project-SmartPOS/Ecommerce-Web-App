@@ -99,11 +99,11 @@
 }
 
 .favorite-button i {
-  color: #c62828;
+  color: #080101;
   cursor: pointer;
   transition: color 0.2s;
 }
 
 .favorite-button .is-favorite {
-  color: black;
+  color: rgb(180, 15, 15);
 }

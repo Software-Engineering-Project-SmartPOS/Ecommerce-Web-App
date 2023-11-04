@@ -45,7 +45,7 @@ function Products() {
     itemList = productList;
   } else {
     itemList = productList.filter((item) =>
-      item.product_name.toLowerCase().includes(Params.key.toLowerCase())
+      item.name.toLowerCase().includes(Params.key.toLowerCase())
     );
   }
 

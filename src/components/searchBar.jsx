@@ -45,17 +45,16 @@ function SearchBar() {
             <option value="Beverage">Beverages</option>
             <option value="Household">Household</option>
           </select>
-
-          <button className=" btn-primary-searchbar">
-            <NavLink
-              className="sectiom-item-Link"
-              to={{
-                pathname: `/Products/${searchKey.catageory}/${searchKey.key}`,
-              }}
-            >
+          <NavLink
+            className="sectiom-item-Link"
+            to={{
+              pathname: `/Products/${searchKey.catageory}/${searchKey.key}`,
+            }}
+          >
+            <button className=" btn-primary-searchbar">
               <i className="fa fa-search"></i>
-            </NavLink>
-          </button>
+            </button>
+          </NavLink>
         </div>
       </form>
     </div>

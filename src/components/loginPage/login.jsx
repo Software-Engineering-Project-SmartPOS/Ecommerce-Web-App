@@ -70,7 +70,7 @@ const Login = () => {
           <div className="login-form-group">
             <input
               type="email"
-              id="username"
+              id="username-login"
               name="username"
               value={formData.username}
               onChange={handleChange}
@@ -89,9 +89,7 @@ const Login = () => {
             />
             <span>Password</span>
           </div>
-          <div className="login-page-link-container">
-            <Link to="/forgot-password">Forgot Password?</Link>
-          </div>
+
           <div className="user-login-button">
             <button className="login-button" type="submit">
               Login

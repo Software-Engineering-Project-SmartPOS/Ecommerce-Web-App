@@ -6,15 +6,16 @@ import CreateItem from "../components/admin/createItem";
 import ViewOrders from "../components/admin/viewOrders";
 import AdminCreateUser from "../components/admin/adminCreateUser";
 import AdminViewCustomer from "../components/admin/adminViewCustomer";
-import Home from "./homePage";
 import axios from "axios";
 import AdminViewItem from "../components/admin/adminViewItem";
+import { useNavigate } from "react-router-dom";
 
 const apiAuth = axios.create({
   baseURL: import.meta.env.VITE_REST_API_URL + "/auth",
 });
 
 function AdminPortal() {
+  const navigate = useNavigate();
   const [selectedButton, setSelectedButton] = useState("Dashboard");
   const [role, setRole] = useState(null); // Initialize role as a state variable
 
@@ -65,7 +66,7 @@ function AdminPortal() {
     localStorage.removeItem("userLogged");
     localStorage.removeItem("user");
     localStorage.removeItem("selectedButton");
-    componentToRender = <Home />;
+    navigate("/");
   }
 
   if (String(role) === "admin") {
