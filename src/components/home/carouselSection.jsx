@@ -21,6 +21,7 @@ function CarouselSection(props) {
           thumb={item.fileData}
           product_name={item.name}
           price={item.price}
+          category={item.category}
         />
       ),
     }))

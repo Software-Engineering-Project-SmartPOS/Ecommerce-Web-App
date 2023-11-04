@@ -91,38 +91,42 @@ function ProductItem(props) {
   };
 
   return (
-    <div className="Card" key={Params.itemId}>
-      <div className="product-itemimage-container">
-        <img
-          className="product-item-image"
-          src={selectedImage}
-          alt="Responsive Image"
-        />
-      </div>
-      <div className="product-item-detail-container">
-        <div className="product-item-title">
-          <h3 className="title">{item.name}</h3>
+    <div className="card-container">
+      <div className="Card" key={Params.itemId}>
+        <div className="product-itemimage-container">
+          <img
+            className="product-item-image"
+            src={selectedImage}
+            alt="Responsive Image"
+          />
         </div>
-        <div className="product-item-title">
-          <h3 className="title">{item.brand}</h3>
-        </div>
-        <div className="product-item-title">
-          <h3 className="title">{item.discount}</h3>
-        </div>
-        <div className="product-item-price">{item.price}</div>
-        <div className="product-description">
-          <p>{item.details}</p>
-        </div>
-        <div className="add-cart-section">
-          <div className="add-cart-button">
-            <button onClick={AddCartHandler}>Add to Cart</button>
+        <div className="product-item-detail-container">
+          <div className="product-item-title">
+            <h3 className="title">{item.name}</h3>
           </div>
-          <div className="decrease-cart">
-            <button onClick={CartDecreaseHandler}>-</button>
+          <div className="product-item-title">
+            <h3 className="title">{item.brand != "" ? item.brand : null}</h3>
           </div>
-          <div className="product-count">{cartCount}</div>
-          <div className="increase-cart">
-            <button onClick={CartIncreaseHandler}>+</button>
+          <div className="product-item-title">
+            <h3 className="title">
+              {item.discount != "" ? item.discount : null}
+            </h3>
+          </div>
+          <div className="product-item-price"> {item.price}</div>
+          <div className="product-description">
+            <p>{item.details}</p>
+          </div>
+          <div className="add-cart-item">
+            <div className="add-cart-button">
+              <button onClick={AddCartHandler}>Add to Cart</button>
+            </div>
+            <div className="decrease-cart">
+              <button onClick={CartDecreaseHandler}>-</button>
+            </div>
+            <div className="product-count">{cartCount}</div>
+            <div className="increase-cart">
+              <button onClick={CartIncreaseHandler}>+</button>
+            </div>
           </div>
         </div>
       </div>

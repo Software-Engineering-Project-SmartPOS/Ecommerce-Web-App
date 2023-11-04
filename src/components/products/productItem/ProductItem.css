@@ -1,35 +1,43 @@
-/* ProductItem.css */
+.card-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
 
-/* Styles for the outer container */
 .Card {
   border: 1px solid #ddd;
   margin: 10px;
   padding: 10px;
   display: flex;
-  text-align: center; /* Center text content */
+  text-align: center;
   margin-top: 100px;
+  align-self: center;
+  width: 80%;
+  justify-self: center;
+  justify-content: center;
 }
 
-/* Styles for the product image container */
 .product-itemimage-container {
-  margin-right: 20px; /* Add spacing between image and details */
+  margin-right: 20px;
   margin-left: 30px;
-  height: 80vh;
+  height: 50vh;
+  width: auto;
 }
 
-/* Styles for the product image */
 .product-item-image {
-  width: 70%;
+  width: 100%;
   max-width: 100%;
-  height: auto;
+  height: 50vh;
 }
 
-/* Styles for the product details container */
 .product-item-detail-container {
-  text-align: left; /* Left-align the details content */
+  text-align: center;
+  display: flex;
+  margin-left: 100px;
+  justify-content: center;
+  flex-direction: column;
 }
 
-/* Styles for the product title */
 .product-item-title .title {
   font-size: 18px;
   margin: 0;
@@ -41,42 +49,39 @@
   font-weight: bold;
 }
 
-/* Styles for the description */
 .product-description p {
   margin-top: 10px;
 }
 
-/* Add to Cart section */
-.add-cart-section {
+.add-cart-item {
   display: flex;
   align-items: center;
+  justify-content: end;
 }
 
-/* Add to Cart button */
 .add-cart-button button {
-  background-color: #007bff; /* Blue background color */
-  color: #fff; /* White text color */
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
+  background-color: #ebeef1;
+  color: #180303;
+  border-radius: 20px;
   cursor: pointer;
+  border: 2px solid rgb(9, 9, 9);
 }
 
-/* Decrease and Increase buttons */
 .decrease-cart button,
 .increase-cart button {
-  background-color: #ccc; /* Gray background color */
-  color: #333; /* Dark text color */
-  border: none;
+  background-color: #ccc;
+  color: #333;
+  border: 2px solid rgb(9, 9, 9);
   padding: 5px 10px;
-  border-radius: 5px;
+  border-radius: 20px;
   cursor: pointer;
   font-weight: bold;
   font-size: 16px;
-  margin: 0 5px;
+  margin: 0 10px;
+  width: 40px;
+  height: 40px;
 }
 
-/* Product count */
 .product-count {
   font-size: 20px;
   font-weight: bold;

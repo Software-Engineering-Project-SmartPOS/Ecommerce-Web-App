@@ -36,7 +36,15 @@ function Slide(props) {
       <img src={selectedImage} alt="" className="image-container" />
       <div className="text-overlay">
         <h4 className="product-name">{props.product_name}</h4>
-        <h4 className="product-price">{props.price}.</h4>
+        <h4 className="product-price">
+          {" "}
+          <div className="section-item-price">
+            {props.price}{" "}
+            {props.category === "Vegetable" || props.category === "Fruit"
+              ? "Per 1Kg"
+              : "Per Item"}
+          </div>
+        </h4>
       </div>
     </div>
   );

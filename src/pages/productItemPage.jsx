@@ -1,5 +1,4 @@
 import React from "react";
-import FruitCard from "../components/dataComponent/fruitData";
 import ProductItem from "../components/products/productItem/ProductItem";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";

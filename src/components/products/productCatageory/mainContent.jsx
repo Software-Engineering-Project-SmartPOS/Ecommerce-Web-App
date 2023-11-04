@@ -17,6 +17,7 @@ function MainContent(props) {
       props.changeItemList(updatedItems);
     }
   };
+  console.log(props);
 
   const SectionItems = props.CatageoryList.map((sectionItem) => (
     <div key={sectionItem.id}>
@@ -28,6 +29,7 @@ function MainContent(props) {
         discount={sectionItem.discount}
         user={sectionItem.savedByUsers}
         changeItem={props.changeItem !== null ? changeItem : null}
+        category={sectionItem.category}
       />
     </div>
   ));
