@@ -7,9 +7,9 @@
   z-index: 1000;
 }
 .carousel-section {
-  margin-top: 60px;
-  margin-bottom: 60px;
-  height: 80vh;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  height: 85vh;
   width: 100%;
   align-items: center;
   justify-content: center;
@@ -19,7 +19,6 @@
   padding: 10px;
   background-color: rgb(244, 243, 247);
   overflow: hidden;
-  /* border: 10px solid #3a3434; */
 
   border-radius: 10px;
 }
@@ -44,4 +43,40 @@
 }
 .carousel-nav-link {
   text-decoration: none;
+}
+@media (max-width: 440px) {
+  .carousel-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background-color: rgb(247, 247, 249);
+    z-index: 1000;
+  }
+
+  .carousel-section {
+    margin-top: 30px;
+    margin-bottom: 0px;
+    height: 50vh;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+  }
+}
+@media (max-width: 768px) {
+  .carousel-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background-color: rgb(247, 247, 249);
+    z-index: 1000;
+  }
+
+  .carousel-section {
+    margin-top: 30px;
+    margin-bottom: 0px;
+    height: 65vh;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+  }
 }

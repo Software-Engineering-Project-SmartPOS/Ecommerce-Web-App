@@ -145,67 +145,6 @@ function SectionItem(props) {
   };
 
   return (
-    // <div className="section-item-card" key={props.id}>
-    //   <div className="favorite-button">
-    //     <i
-    //       className={`fa fa-heart ${isFavorite ? "is-favorite" : ""}`}
-    //       onClick={handleToggleFavorite}
-    //     ></i>
-    //   </div>
-    //   <Link
-    //     className="section-item-Link" // Fixed typo here, should be "section-item-Link"
-    //     to={{
-    //       pathname: `/products/Item/${props.id}/${cartCount}`,
-    //       state: { data: props },
-    //     }}
-    //   >
-    //     <div className="section-item-upper-part">
-    //       <div className="section-item-discount">{props.discount}</div>
-    //       <div className="section-item-image">
-    //         <img className="section-item-image" src={selectedImage} />
-    //       </div>
-    //     </div>
-    //   </Link>
-    //   <div className="section-item-detail">
-    //     <h5 className="section-item-title">{props.product_name}</h5>
-    //     <div className="section-item-price">
-    //       {props.price}{" "}
-    //       {props.category === "Vegetable" || props.category === "Fruit"
-    //         ? "Per 1Kg"
-    //         : "Per Item"}
-    //     </div>
-
-    //     {UserStatus ? (
-    //       <div className="add-cart-section">
-    //         <div className="add-cart-button">
-    //           <button
-    //             className="add-cart"
-    //             onClick={() => AddCartHandler(props)}
-    //           >
-    //             Add to Cart
-    //           </button>
-    //         </div>
-    //         <div className="cart-decrease-button">
-    //           <button className="cart-decrease" onClick={CartDecreaseHandler}>
-    //             -
-    //           </button>
-    //         </div>
-    //         <div className="product-count">{cartCount}</div>
-    //         <div className="cart-increase-button">
-    //           <button className="cart-increase" onClick={CartIncreaseHandler}>
-    //             +
-    //           </button>
-    //         </div>
-    //       </div>
-    //     ) : (
-    //       <div className="inactive-section">
-    //         <Link to="/LoginPage">
-    //           <button className="buy-now">Buy Now</button>
-    //         </Link>
-    //       </div>
-    //     )}
-    //   </div>
-    // </div>
     <div className="product-card" key={props.id}>
       <Link
         to={{

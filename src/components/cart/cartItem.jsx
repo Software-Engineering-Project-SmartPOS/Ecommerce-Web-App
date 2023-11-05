@@ -41,7 +41,7 @@ function CartItem(props) {
   }
 
   function CartIncreaseHandler() {
-    if (props.cartItem.quantity > 1) {
+    if (props.cartItem.quantity >= 1) {
       const cartCount = props.cartItem.quantity;
 
       props.cartItem.quantity = cartCount + 1;
@@ -122,19 +122,19 @@ function CartItem(props) {
       <div className="cart-item-details">{props.cartItem.item.name}</div>
       <div className="item-quantity">
         <button className="decrease-cart-button" onClick={CartDecreaseHandler}>
-          -
+          <i class="fa fa-minus"></i>
         </button>
         <div className="cart-count">{props.cartItem.quantity}</div>
         <button className="increase-cart-button" onClick={CartIncreaseHandler}>
-          +
+          <i class="fa fa-plus"></i>
         </button>
       </div>
       <div className="items-total-price">
-        {props.cartItem.quantity * priceInt}
+        RS.{props.cartItem.quantity * priceInt}.00
       </div>
       <div className="remove-cart-item">
         <button onClick={closeHandler}>
-          <i className="fa fa-times-circle"></i>
+          <i class="fa fa-times"></i>
         </button>
       </div>
     </div>

@@ -55,6 +55,7 @@ function PaymentSection(props) {
       <div className="card-detail-form">
         <form onSubmit={paymentHandle}>
           <input
+            className="payment-card-detail-form"
             type="text"
             id="name"
             name="cardHoulderName"
@@ -62,6 +63,7 @@ function PaymentSection(props) {
           />
 
           <input
+            className="payment-card-number"
             type="number"
             id="number"
             name="cardNumber"
@@ -78,7 +80,11 @@ function PaymentSection(props) {
             </div>
           </div>
 
-          <input type="submit" value="Checkout" />
+          <input
+            className="payment-submit-button"
+            type="submit"
+            value="Checkout"
+          />
         </form>
       </div>
     </div>

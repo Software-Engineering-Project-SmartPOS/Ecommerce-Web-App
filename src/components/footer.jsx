@@ -1,4 +1,4 @@
-// Footer.js
+import { NavLink } from "react-router-dom";
 import "./footer.css";
 import React from "react";
 import logo from "../assets/logo.png";
@@ -15,29 +15,26 @@ function Footer() {
           <div className="footer-links">
             <ul>
               <li>
-                <a href="#">Home</a>
+                <NavLink to="/">Home</NavLink>
               </li>
               <li>
-                <a href="#">Shop</a>
+                <NavLink to="/Discount">Discount</NavLink>
               </li>
               <li>
-                <a href="#">Categories</a>
-              </li>
-              <li>
-                <a href="#">Contact Us</a>
+                <NavLink to="/Products">Products</NavLink>
               </li>
             </ul>
           </div>
           <div className="footer-social">
             <h3>Follow Us</h3>
             <a href="#">
-              <i className="fab fa-facebook"></i>
+              <i className="fab fa-facebook icon-small"></i>
             </a>
             <a href="#">
-              <i className="fab fa-twitter"></i>
+              <i className="fab fa-twitter icon-small"></i>
             </a>
             <a href="#">
-              <i className="fab fa-instagram"></i>
+              <i className="fab fa-instagram icon-small"></i>
             </a>
           </div>
         </div>

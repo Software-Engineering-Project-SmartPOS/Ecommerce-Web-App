@@ -124,6 +124,7 @@ function CartPage() {
               <h4 className="cart-name-header">Name</h4>
               <h4 className="cart-count-header">Number of</h4>
               <h4 className="cart-price-header">Price</h4>
+              <h4 className="cart-price-header">Action</h4>
             </div>
             <div>
               <CartList
@@ -131,6 +132,7 @@ function CartPage() {
                 setTotalAmount={totalAmount}
                 totalAmount={subTotal}
                 removeItem={removeItemHandler}
+                className="cartList"
               />
             </div>
           </div>

@@ -39,7 +39,7 @@ function Header() {
         <div className="navbar-user-container">
           {userLogged ? (
             <div className="user-container">
-              <Link to="/UserPage" className="user-container-link profile">
+              <Link to="/UserPage" className="user-container-link profile-icon">
                 <div className="user-container-icon">
                   <i className="fa fa-user"></i>
                 </div>

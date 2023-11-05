@@ -144,8 +144,7 @@ const ImageUpload = () => {
         </i>
       </div>
       <div className="user-name">
-        {storedUser.firstname}
-        {storedUser.lastname}
+        {storedUser.firstname} {storedUser.lastname}
       </div>
       <button
         className="user-page-remove-image"

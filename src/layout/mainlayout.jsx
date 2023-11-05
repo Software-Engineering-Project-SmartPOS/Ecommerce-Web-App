@@ -10,12 +10,11 @@ function MainLayout({ children }) {
   return (
     <div className="layout-container">
       <div className="main-layout-section">
-        <div className="header-navbar">
-          <Header />
-          <Navbar />
-        </div>
+        {/* <div className="header-navbar"> */}
+        <Header />
+        <Navbar />
+
         <SearchBar />
-        <div className="space"></div>
       </div>
       <main>
         {children}
