@@ -137,11 +137,11 @@ function AdminDashboard() {
   return (
     <div className="admindashoard">
       <h2>Admin Dashboard</h2>
-      <div className="user-edit-section">
+      {/* <div className="user-edit-section">
         <Link to="/user-details-or-edit-section">
           <i className="fas fa-user" style={{ fontSize: "24px" }}></i>
         </Link>
-      </div>
+      </div> */}
       <div className="dashboard-stats">
         <div className="stat-box">
           <h3>
