@@ -26,9 +26,24 @@ const SignUp = () => {
     });
   };
 
+  const isPasswordValid = (password) => {
+    console.log("hi");
+    const passwordPattern =
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+    return passwordPattern.test(password);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setFormData({ ...formData });
+
+    console.log(formData.p);
+    if (!isPasswordValid(formData.password)) {
+      alert(
+        "Password must contain at least one letter, one digit, one special character, and be at least 8 characters long."
+      );
+      return;
+    }
 
     try {
       const response = await apiAuth.post("/register", formData, {
@@ -64,49 +79,49 @@ const SignUp = () => {
         localStorage.setItem("user", JSON.stringify(response.data));
         navigate("/Home");
 
-        const handleSubmit = async (e) => {
-          e.preventDefault();
+        // const handleSubmit = async (e) => {
+        //   e.preventDefault();
 
-          try {
-            const response = await apiAuth.post(
-              "/login",
-              {
-                username: formData.username,
-                password: formData.password,
-              },
-              {
-                headers: {
-                  "Content-Type": "application/json",
-                },
-              }
-            );
+        //   try {
+        //     const response = await apiAuth.post(
+        //       "/login",
+        //       {
+        //         username: formData.username,
+        //         password: formData.password,
+        //       },
+        //       {
+        //         headers: {
+        //           "Content-Type": "application/json",
+        //         },
+        //       }
+        //     );
 
-            console.log(response.data.jwt);
+        //     console.log(response.data.jwt);
 
-            if (response.status === 200) {
-              console.log(response);
-              localStorage.setItem("jwtToken", response.data.jwt);
-              const newResponse = await apiAuth.get("/me", {
-                headers: {
-                  Authorization: `Bearer ${response.data.jwt}`,
-                  "Content-Type": "application/json",
-                },
-              });
+        //     if (response.status === 200) {
+        //       console.log(response);
+        //       localStorage.setItem("jwtToken", response.data.jwt);
+        //       const newResponse = await apiAuth.get("/me", {
+        //         headers: {
+        //           Authorization: `Bearer ${response.data.jwt}`,
+        //           "Content-Type": "application/json",
+        //         },
+        //       });
 
-              console.log(newResponse.data);
+        //       console.log(newResponse.data);
 
-              if (String(newResponse.data.role) === "customer") {
-                localStorage.setItem("userLogged", "true"); // Set as string
-              }
+        //       if (String(newResponse.data.role) === "customer") {
+        //         localStorage.setItem("userLogged", "true"); // Set as string
+        //       }
 
-              navigate("/Home");
-            } else {
-              console.log("Authentication failed");
-            }
-          } catch (error) {
-            console.error("Error authenticating:", error);
-          }
-        };
+        //       navigate("/Home");
+        //     } else {
+        //       console.log("Authentication failed");
+        //     }
+        //   } catch (error) {
+        //     console.error("Error authenticating:", error);
+        //   }
+        // };
 
         // No need to navigate here
       } else {
@@ -165,6 +180,12 @@ const SignUp = () => {
             />
             <span>Address</span>
           </div>
+
+          <p className="password-requirements">
+            Password must have at least one letter, digit,special char, and 8
+            characters long.
+          </p>
+
           <div className="signup-form-group">
             <input
               type="password"
