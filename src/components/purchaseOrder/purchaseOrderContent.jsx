@@ -33,7 +33,7 @@ function PurchaseOrderContent(props) {
           className={`tab-links ${!content ? "active" : ""}`}
           onClick={() => handleTabClick(false)}
         >
-          Order History
+          Delivered Order History
         </button>
       </div>
       <div className="tab-content">

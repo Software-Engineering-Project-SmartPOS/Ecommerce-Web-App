@@ -47,7 +47,13 @@ function OrderedItem(props) {
         <h4>{props.data.item.price}</h4>
       </div>
       <div className="ordered-item-details">
-        <h3>Quantity : {props.data.quantity}</h3>
+        <h3>
+          Quantity : {props.data.quantity}{" "}
+          {props.data.item.category === "Vegetable" ||
+          props.data.item.category === "Fruit"
+            ? "Per 1Kg"
+            : "Per Item"}
+        </h3>
         <h4>Amount : Rs.{priceInt * props.data.quantity}.00</h4>
       </div>
       <div className="ordered-item-status">
@@ -58,11 +64,11 @@ function OrderedItem(props) {
         <div className="delivered-date">Date</div>
       ) : null}
 
-      <div className="remove-cart-item">
+      {/* <div className="remove-cart-item">
         <button onClick={closeHandler}>
           <img src={CloseIcon} />
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }

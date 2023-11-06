@@ -109,7 +109,7 @@ function ProductItem(props) {
           </div>
           <div className="product-item-title">
             <h3 className="title">
-              {item.discount != "" ? item.discount : null}
+              {item.discount != "" ? item.discount + " off" : null}
             </h3>
           </div>
           <div className="product-item-price"> {item.price}</div>
@@ -117,7 +117,7 @@ function ProductItem(props) {
             <p>{item.details}</p>
           </div>
           <div className="add-cart-item">
-            <div className="add-cart-button">
+            <div className="add-cart-button-product-item">
               <button onClick={AddCartHandler}>Add to Cart</button>
             </div>
             <div className="decrease-cart">
