@@ -169,12 +169,14 @@ function AdminCreateUser() {
   return (
     <div className="admin-create-user">
       <h2>User Registration</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="firstName">First Name:</label>
+      <form onSubmit={handleSubmit} className="admin-create-user-form ">
+        <div className="admin-create-form-group">
+          <label htmlFor="firstName" className="admin-create-label">
+            First Name:
+          </label>
           <input
             type="text"
-            id="firstName"
+            id="admin-create-firstName"
             className="input-field-create-admin"
             name="firstName"
             value={user.firstName}
@@ -183,11 +185,13 @@ function AdminCreateUser() {
           {displayErrors("firstName")}
         </div>
 
-        <div>
-          <label htmlFor="lastName">Last Name:</label>
+        <div className="admin-create-form-group">
+          <label htmlFor="lastName" className="admin-create-label">
+            Last Name:
+          </label>
           <input
             type="text"
-            id="lastName"
+            id="admin-create-lastName"
             className="input-field-create-admin"
             name="lastName"
             value={user.lastName}
@@ -196,8 +200,10 @@ function AdminCreateUser() {
           {displayErrors("lastName")}
         </div>
 
-        <div>
-          <label htmlFor="email">Email:</label>
+        <div className="admin-create-form-group">
+          <label htmlFor="email" className="admin-create-label">
+            Email:
+          </label>
           <input
             type="email"
             id="email"
@@ -208,13 +214,16 @@ function AdminCreateUser() {
           />
           {displayErrors("Email")}
         </div>
-        <div>
-          <label htmlFor="userType">User Type:</label>
+        <div className="admin-create-form-group">
+          <label htmlFor="userType" className="admin-create-label">
+            User Type:
+          </label>
           <select
             id="userType"
             name="userType"
             value={user.userType}
             onChange={handleChange}
+            className="admin-create-select"
           >
             <option value="customer">Customer</option>
             <option value="admin">Admin</option>
@@ -222,8 +231,10 @@ function AdminCreateUser() {
           </select>
         </div>
 
-        <div>
-          <label htmlFor="password">Password:</label>
+        <div className="admin-create-form-group">
+          <label htmlFor="password" className="admin-create-label">
+            Password:
+          </label>
           <input
             type="password"
             id="password"
@@ -234,8 +245,10 @@ function AdminCreateUser() {
           />
           {displayErrors("Password")}
         </div>
-        <div>
-          <label htmlFor="reenterPassword">Re-enter Password:</label>
+        <div className="admin-create-form-group">
+          <label htmlFor="reenterPassword" className="admin-create-label">
+            Re-enter Password:
+          </label>
           <input
             type="password"
             id="reenterPassword"
@@ -246,19 +259,23 @@ function AdminCreateUser() {
           />
           {displayErrors("Re Enter Password")}
         </div>
-        <div>
-          <label htmlFor="address">Address:</label>
+        <div className="admin-create-form-group">
+          <label htmlFor="address" className="admin-create-label">
+            Address:
+          </label>
           <textarea
             id="address"
-            className="input-field-create-admin"
+            className="textarea-field-create-admin"
             name="address"
             value={user.address}
             onChange={handleChange}
           />
           {displayErrors("Address")}
         </div>
-        <div>
-          <label htmlFor="telephone">Telephone:</label>
+        <div className="admin-create-form-group">
+          <label htmlFor="telephone" className="admin-create-label">
+            Telephone:
+          </label>
           <input
             type="tel"
             id="telephone"
@@ -270,12 +287,14 @@ function AdminCreateUser() {
           {displayErrors("Telephone")}
         </div>
 
-        <div>
-          <label htmlFor="profilePicture">Profile Picture:</label>
+        <div className="admin-create-form-group">
+          <label htmlFor="profilePicture" className="admin-create-label">
+            Profile Picture:
+          </label>
           <input
             type="file"
             id="image"
-            className="input-field-create-admin"
+            className="create-item-image"
             name="image"
             accept="image/*"
             onChange={handleImageChange}
@@ -286,7 +305,7 @@ function AdminCreateUser() {
               <img
                 src={URL.createObjectURL(user.image)}
                 alt="Image Preview"
-                className="image-preview"
+                className="admin-create-user-image-preview"
                 width="200"
                 height="150"
               />
@@ -300,7 +319,9 @@ function AdminCreateUser() {
           )}
         </div>
 
-        <button type="submit">Register</button>
+        <button className="admin-create-user-button" type="submit">
+          Register
+        </button>
       </form>
     </div>
   );

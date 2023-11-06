@@ -76,37 +76,42 @@ function AdminViewCustomer() {
   });
 
   return (
-    <div className="user-list">
-      <h2>User List</h2>
-      <div className="search-bar">
+    <div className="admin-user-view-user-list">
+      <h2 className="admin-user-view-heading">User List</h2>
+      <div className="admin-user-view-search-bar">
         <input
-          className="search-input"
+          id="admin-view-search-bar"
+          className="admin-user-view-search-input"
           type="text"
           placeholder="Search by user name, email, or address"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
       </div>
-      <table>
+      <table className="admin-user-view-details-table">
         <thead>
-          <tr>
-            <th>User Name</th>
-            <th>Email</th>
-            <th>Telephone</th>
-            <th>Address</th>
-            <th>Purchased Items</th>
-            <th>Total Amount</th>
+          <tr className="admin-user-view-table-header">
+            <th className="admin-user-view-table-heading">User Name</th>
+            <th className="admin-user-view-table-heading">Email</th>
+            <th className="admin-user-view-table-heading">Telephone</th>
+            <th className="admin-user-view-table-heading">Address</th>
+            <th className="admin-user-view-table-heading">Purchased Items</th>
+            <th className="admin-user-view-table-heading">Total Amount</th>
           </tr>
         </thead>
         <tbody>
           {filteredUsers.map((user) => (
-            <tr key={user.id}>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-              <td>{user.telephone}</td>
-              <td>{user.address}</td>
-              <td>{user.purchasedItems}</td>
-              <td>RS.{user.totalAmount}.00</td>
+            <tr className="admin-user-view-table-row" key={user.id}>
+              <td className="admin-user-view-table-data">{user.name}</td>
+              <td className="admin-user-view-table-data">{user.email}</td>
+              <td className="admin-user-view-table-data">{user.telephone}</td>
+              <td className="admin-user-view-table-data">{user.address}</td>
+              <td className="admin-user-view-table-data">
+                {user.purchasedItems}
+              </td>
+              <td className="admin-user-view-table-data">
+                RS.{user.totalAmount}.00
+              </td>
             </tr>
           ))}
         </tbody>

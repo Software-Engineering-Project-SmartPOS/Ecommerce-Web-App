@@ -169,60 +169,67 @@ function EditItem(props) {
       <form>
         <div className="create-item-container-input">
           <div className="text-input">
-            <div className={`form-field ${nameError ? "error" : ""}`}>
+            <div
+              className={`create-item-form-field ${nameError ? "error" : ""}`}
+            >
               <label htmlFor="name">Name:</label>
               <input
                 type="text"
-                id="name"
+                id="create-item-name"
                 name="name"
                 placeholder="Name"
                 value={item.name}
                 onChange={handleInputChange}
+                className="create-item-input-field"
               />
               {nameError && (
                 <span className="error-message">Name is required.</span>
               )}
             </div>
-            <div className="form-field">
+            <div className="create-item-form-field">
               <label htmlFor="brand">Brand:</label>
               <input
                 type="text"
-                id="brand"
+                id="create-item-brand"
                 name="brand"
                 placeholder="Brand"
                 value={item.brand}
                 onChange={handleInputChange}
+                className="create-item-input-field"
               />
             </div>
-            <div className="form-field">
+            <div className="create-item-form-field">
               <label htmlFor="price">Price:</label>
               <input
                 type="number"
-                id="price"
+                id="create-item-price"
                 name="price"
                 placeholder="Price"
                 value={item.price}
                 onChange={handleInputChange}
+                className="create-item-input-field"
               />
             </div>
-            <div className="form-field">
+            <div className="create-item-form-field">
               <label htmlFor="discount">Discount:</label>
               <input
                 type="number"
-                id="discount"
+                id="create-item-discount"
                 name="discount"
                 placeholder="Discount"
                 value={item.discount}
                 onChange={handleInputChange}
+                className="create-item-input-field"
               />
             </div>
-            <div className="form-field">
+            <div className="create-item-form-field">
               <label htmlFor="category">Category:</label>
               <select
-                id="category"
+                id="create-item-category"
                 name="category"
                 value={item.category}
                 onChange={handleCategoryChange}
+                className="create-item-select-field"
               >
                 <option value="Select Category" disabled>
                   Select Category
@@ -237,38 +244,41 @@ function EditItem(props) {
                 <option value="Household">Household</option>
               </select>
             </div>
-            <div className="form-field">
+            <div className="create-item-form-field">
               <label htmlFor="details">Details:</label>
               <input
                 type="text"
-                id="details"
+                id="create-item-details"
                 name="details"
                 placeholder="Details"
                 value={item.details}
                 onChange={handleInputChange}
+                className="create-item-input-field"
               />
             </div>
-            <div className="form-field">
+            <div className="create-item-form-field">
               <label htmlFor="quantity">Quantity:</label>
               <input
                 type="number"
-                id="quantity"
+                id="create-item-quantity"
                 name="quantity"
                 placeholder="Quantity"
                 value={item.quantity}
                 onChange={handleInputChange}
+                className="create-item-input-field"
               />
             </div>
           </div>
           <div className="image-input">
-            <div className="form-field">
+            <div className="create-item-form-field">
               <label htmlFor="image">Image:</label>
               <input
                 type="file"
-                id="image"
+                id="create-item-image"
                 name="image"
                 accept="image/*"
                 onChange={handleImageChange}
+                className="create-item-input-field"
               />
               <div className="create-item-image">
                 {item.image && (
@@ -284,9 +294,12 @@ function EditItem(props) {
             </div>
           </div>
         </div>
-
-        <button type="button" onClick={handleSubmit} className="submit-button">
-          Create Item
+        <button
+          type="button"
+          onClick={handleSubmit}
+          className="create-itemsubmit-button"
+        >
+          Save Edit Item
         </button>
       </form>
     </div>

@@ -61,9 +61,11 @@ function AdminSectionItem(props) {
 
   return (
     <div className="admin-section-item-card" key={props.id}>
-      <div className="icon-container">
-        <i className="fas fa-pen" onClick={editHandler}></i>
-        {/* Delete icon */}
+      <div className="remove-icon-admin-container">
+        <div className="icon-container">
+          <i className="fas fa-pen" onClick={editHandler}></i>
+          {/* Delete icon */}
+        </div>
       </div>
       <div className="admin-section-item-upper-part">
         <div className="admin-section-item-discount">{props.discount}</div>

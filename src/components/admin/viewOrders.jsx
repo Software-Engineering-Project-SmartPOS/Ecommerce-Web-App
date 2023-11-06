@@ -123,64 +123,74 @@ function ViewOrders() {
     <div className="admin-order-view">
       <div className="order-list-container">
         <h2 className="order-list-title">Order List</h2>
-        <div className="search-bar">
-          <label htmlFor="search">Search: </label>
+        <div className="order-view-search-bar">
           <input
             type="text"
-            id="search"
-            className="search-input"
+            id="order-view-search"
+            className="oreder-view-search-input"
             placeholder="Search by order status, item name, or brand"
             value={searchText}
             onChange={handleSearch}
           />
         </div>
-        <table className="order-table">
-          <thead>
-            <tr>
-              <th className="order-header">Order Name</th>
-              <th className="order-header">Brand</th>
-              <th className="order-header order-status">Status</th>
-              <th className="order-header">Customer Username</th>
-              <th className="order-header">Quantity</th>
-              <th className="order-header">Unit Price</th>
-              <th className="order-header">Total Price</th>
-              <th className="order-header">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredOrders.map((order, index) => (
-              <tr key={index} className="order-row">
-                <td className="order-data">{order.productName}</td>
-                <td className="order-data">{order.brand}</td>
-                <td className="order-data">
-                  {editRow === order.id ? (
-                    <select value={editedStatus} onChange={handleStatusChange}>
-                      <option value="Purchased">Purchased</option>
-                      <option value="Delivered">Delivered</option>
-                    </select>
-                  ) : (
-                    order.status
-                  )}
-                </td>
-                <td className="order-data">{order.customerName}</td>
-                <td className="order-data">{order.quantity}</td>
-                <td className="order-data">{order.unitPrice}</td>
-                <td className="order-data">{order.totalPrice}</td>
-                <td className="order-data">
-                  {editRow === order.id ? (
-                    <button onClick={() => handleSaveStatus(order)}>
-                      Save
-                    </button>
-                  ) : (
-                    <button onClick={() => handleEditRow(order.id)}>
-                      Edit
-                    </button>
-                  )}
-                </td>
+        <div className="order-view-table-content">
+          <table className="order-table">
+            <thead>
+              <tr>
+                <th className="order-header">Order Name</th>
+                <th className="order-header">Brand</th>
+                <th className="order-header order-status">Status</th>
+                <th className="order-header">Customer Username</th>
+                <th className="order-header">Quantity</th>
+                <th className="order-header">Unit Price</th>
+                <th className="order-header">Total Price</th>
+                <th className="order-header">Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {filteredOrders.map((order, index) => (
+                <tr key={index} className="order-row">
+                  <td className="order-data">{order.productName}</td>
+                  <td className="order-data">{order.brand}</td>
+                  <td className="order-data">
+                    {editRow === order.id ? (
+                      <select
+                        value={editedStatus}
+                        onChange={handleStatusChange}
+                      >
+                        <option value="Purchased">Purchased</option>
+                        <option value="Delivered">Delivered</option>
+                      </select>
+                    ) : (
+                      order.status
+                    )}
+                  </td>
+                  <td className="order-data">{order.customerName}</td>
+                  <td className="order-data">{order.quantity}</td>
+                  <td className="order-data">{order.unitPrice}</td>
+                  <td className="order-data">{order.totalPrice}</td>
+                  <td className="order-data">
+                    {editRow === order.id ? (
+                      <button
+                        onClick={() => handleSaveStatus(order)}
+                        className="order-view-edit-button"
+                      >
+                        Save
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => handleEditRow(order.id)}
+                        className="order-view-edit-button"
+                      >
+                        Edit
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
